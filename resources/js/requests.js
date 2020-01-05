@@ -14,139 +14,125 @@ const requests = new Vue({
         holidaysPending : [],
         holidaysAccepted : [],
         holidaysDeclined : [],
+        acceptButton : false,
+        declineButton : false,
+        holidaysPendingCount : 0,
+        holidaysAcceptedCount : 0,
+        holidaysDeclinedCount : 0,
+        pendingRequests : false,
+        acceptedRequests : false,
+        declinedRequests : false,
     },
     mounted() {
         this.getRequests();
-        $("ul.tabs li").click(function(){
-            $(".request_button").hide();
-            $("#selectAllPending").removeAttr('checked');
-            $("#selectAllAccepted").removeAttr('checked');
-            $("#selectAllDeclined").removeAttr('checked');
-            $(".undecidedCheckbox").removeAttr('checked');
-            $(".acceptedCheckbox").removeAttr('checked');
-            $(".declinedCheckbox").removeAttr('checked');
-        });
-
-        // turn this into Vue code
-        $(".delete").click(function() {
-            var message = confirm("Are you sure you want to decline this holiday request?");
-            if (message == true) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-
-        // turn this into Vue code
-        $("#selectAllPending").on('click', function () {
-            if ($(this).attr('checked') == 'checked') {
-                //$(".undecidedCheckbox").attr('checked', 'checked');
-                $("#accept_button").fadeIn();
-                $("#decline_button").fadeIn();
-            } else {
-                //$(".undecidedCheckbox").removeAttr('checked');
-                $("#accept_button").fadeOut();
-                $("#decline_button").fadeOut();
-            }
-        });
-
-        // turn this into Vue code
-        $("#selectAllAccepted").on('click', function () {
-            if ($(this).attr('checked') == 'checked') {
-                //$(".acceptedCheckbox").attr('checked', 'checked');
-                $("#decline_button").fadeIn();
-            } else {
-                //$(".acceptedCheckbox").removeAttr('checked');
-                $("#decline_button").fadeOut();
-            }
-        });
-
-        // turn this into Vue code
-        $(".acceptedCheckbox").on('click', function () {
-            var checked = $(".acceptedCheckbox:checked").length;
-            if(checked > 0){
-                $("#decline_button").fadeIn();
-            } else {
-                $("#decline_button").fadeOut();
-            }
-        });
-
-        // turn this into Vue code
-        $("#selectAllDeclined").on('click', function () {
-            if ($(this).attr('checked') == 'checked') {
-
-                $(".declinedCheckbox").attr('checked', 'checked');
-                $("#accept_button").fadeIn();
-            } else {
-                $(".declinedCheckbox").removeAttr('checked');
-                $("#accept_button").fadeOut();
-            }
-        });
-
-        // turn this into Vue code
-        $(".declinedCheckbox").on('click', function () {
-            var checked = $(".declinedCheckbox:checked").length;
-            if(checked > 0){
-                $("#accept_button").fadeIn();
-            } else {
-                $("#accept_button").fadeOut();
-            }
-        });
     },
     computed: {
     },
     watch: {
+        'pending' : function () {
+            let self = this;
+            if (self.pending.length > 0 && self.pending.length < self.holidaysPendingCount) {
+                self.acceptAndDeclineButtonsShow();
+                self.allPending = false;
+            } else if (self.pending.length > 0 && self.pending.length == self.holidaysPendingCount) {
+                self.acceptAndDeclineButtonsShow();
+                self.allPending = true;
+            } else {
+                self.acceptAndDeclineButtonsHide();
+                self.allPending = false;
+            }
+        },
+        'accepted' : function () {
+            let self = this;
+            self.acceptAndDeclineButtonsHide();
+            if (self.accepted.length > 0 && self.accepted.length < self.holidaysAcceptedCount) {
+                self.declineButton = true;
+                self.allAccepted = false;
+            } else if (self.accepted.length > 0 && self.accepted.length == self.holidaysAcceptedCount) {
+                self.declineButton = true;
+                self.allAccepted = true;
+            } else {
+                self.declineButton = false;
+                self.allAccepted = false;
+            }
+        },
+        'declined' : function () {
+            let self = this;
+            self.acceptAndDeclineButtonsHide();
+            if (self.declined.length > 0 && self.declined.length < self.holidaysDeclinedCount) {
+                self.acceptButton = true;
+                self.allDeclined = false;
+            } else if (self.declined.length > 0 && self.declined.length == self.holidaysDeclinedCount) {
+                self.acceptButton = true;
+                self.allDeclined = true;
+            } else {
+                self.acceptButton = false;
+                self.allDeclined = false;
+            }
+        },
     },
     methods: {
+        showTable : function () {
+            let self = this;
+            self.acceptButton = false;
+            self.declineButton = false;
+            self.allPending = false;
+            self.allAccepted = false;
+            self.allDeclined = false;
+            self.pending = [];
+            self.accepted = [];
+            self.declined = [];
+        },
+        acceptAndDeclineButtonsShow : function () {
+            let self = this;
+            self.acceptButton = true;
+            self.declineButton = true;
+        },
+        acceptAndDeclineButtonsHide : function () {
+            let self = this;
+            self.acceptButton = false;
+            self.declineButton = false;
+        },
         selectAllPending : function () {
             let self = this;
-            let checked = self.allPending;
-            if (!checked) {
+            self.acceptAndDeclineButtonsHide();
+            let checked = self.allPending ? 0 : 1;
+            if (checked) {
                 for (let i = 0; i < self.holidaysPending.length; i++) {
                     self.pending.push(self.holidaysPending[i].holiday_id);
                 }
+                self.acceptAndDeclineButtonsShow();
             } else {
                 self.pending = [];
-            }
-        },
-        pendingClicked : function (event, value) {
-            let self = this;
-            if (!event.target.checked) {
-                self.selectAllPending = false;
+                self.acceptAndDeclineButtonsHide();
             }
         },
         selectAllAccepted : function () {
             let self = this;
-            let checked = self.allAccepted;
-            if (!checked) {
+            self.acceptAndDeclineButtonsHide();
+            let checked = self.allAccepted ? 0 : 1;
+            if (checked) {
                 for (let i = 0; i < self.holidaysAccepted.length; i++) {
                     self.accepted.push(self.holidaysAccepted[i].holiday_id);
                 }
+                self.declineButton = true;
             } else {
                 self.accepted = [];
-            }
-        },
-        acceptedClicked : function (event, value) {
-            let self = this;
-            if (!event.target.checked) {
-                self.selectAllAccepted = false;
+                self.declineButton = false;
             }
         },
         selectAllDeclined : function () {
             let self = this;
-            let checked = self.allDeclined;
-            if (!checked) {
+            self.acceptAndDeclineButtonsHide();
+            let checked = self.allDeclined ? 0 : 1;
+            if (checked) {
                 for (let i = 0; i < self.holidaysDeclined.length; i++) {
                     self.declined.push(self.holidaysDeclined[i].holiday_id);
                 }
+                self.acceptButton = true;
             } else {
                 self.declined = [];
-            }
-        },
-        declinedClicked : function (event, value) {
-            let self = this;
-            if (!event.target.checked) {
-                self.selectAllDeclined  = false;
+                self.acceptButton = false;
             }
         },
         getRequests : function () {
@@ -159,12 +145,24 @@ const requests = new Vue({
                 if (response.data.error) {
                     return false;
                 }
-                console.log('holidaysPending', response.data.holidaysPending);
-                console.log('holidaysAccepted', response.data.holidaysAccepted);
-                console.log('holidaysDeclined', response.data.holidaysDeclined);
+                //console.log('holidaysPending', response.data.holidaysPending);
+                //console.log('holidaysAccepted', response.data.holidaysAccepted);
+                //console.log('holidaysDeclined', response.data.holidaysDeclined);
                 self.holidaysPending = response.data.holidaysPending;
                 self.holidaysAccepted = response.data.holidaysAccepted;
                 self.holidaysDeclined = response.data.holidaysDeclined;
+                self.holidaysPendingCount = self.holidaysPending.length;
+                if (self.holidaysPendingCount > 0) {
+                    self.pendingRequests = true;
+                }
+                self.holidaysAcceptedCount = self.holidaysAccepted.length;
+                if (self.holidaysAcceptedCount > 0) {
+                    self.acceptedRequests = true;
+                }
+                self.holidaysDeclinedCount = self.holidaysDeclined.length;
+                if (self.holidaysDeclinedCount > 0) {
+                    self.declinedRequests = true;
+                }
             }).catch(function (err) {
                 console.log('fail');
                 console.log(err);

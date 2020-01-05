@@ -56,7 +56,6 @@ class CalendarController extends Controller
     {
         date_default_timezone_set('Europe/London');
         $date_booked = date('z') + 1;
-        //$date_booked = date('z');
         $holidaysPending = Holiday::whereNull('stage')
             ->where('id', '>=', $date_booked)
             ->where(function($q) {
@@ -66,8 +65,8 @@ class CalendarController extends Controller
             ->with('user')
             ->get();
 
-        $holidaysAccepted = Holiday::where('stage', 'Accepted')->get();
-        $holidaysDeclined = Holiday::where('stage', 'Declined')->get();
+        $holidaysAccepted = Holiday::where('stage', 'Accepted')->where('id', '>=', $date_booked)->get();
+        $holidaysDeclined = Holiday::where('stage', 'Declined')->where('id', '>=', $date_booked)->get();
 
         $data = [
             'holidaysPending'  => $holidaysPending,

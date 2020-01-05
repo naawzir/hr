@@ -40,9 +40,8 @@ const myCalendar = new Vue({
         });
 
         $('#calendar .day_container span').on("mouseup",function(){
-            if(new Date().getTime() - startTime > 500){
+            if (new Date().getTime() - startTime > 500) {
                 var id = $(this).attr('id');
-
                 if($(this).hasClass('halfrequest'))
                 {
                     $(this).removeClass('halfrequest');
@@ -192,18 +191,15 @@ const myCalendar = new Vue({
                         console.log('fail');
                         console.log(err);
                     });
-                }
-                else if($(this).hasClass('weekday'))
-                {
-                    //console.log('in the right place');
+                } else if($(this).hasClass('weekday')) {
+                    var hol_ent = $("#hol_entitlement").text();
                     var t = $("#calendar .halfbooked").length / 2;
                     var u = $("#calendar .halfrequest").length / 2;
                     var v = $("#calendar .halfrequest_sent").length / 2;
                     var w = $('#calendar .booked').length;
                     var x = $('#calendar .request').length;
                     var y = $('#calendar .request_sent').length;
-                    //self.requestedCalculation;
-                    var hol_ent = $("#hol_entitlement").text();
+                    var z = t + u + v + w + x + y;
                     var holidays_remaining = z;
                     $('#requests_booked').html(hol_ent - holidays_remaining);
                     if(hol_ent - z >=0 && hol_ent - z <= 0.9) {
@@ -211,7 +207,6 @@ const myCalendar = new Vue({
                     } else {
                         $(this).removeClass('weekday');
                         $(this).addClass('request');
-                        //self.submitRequestsButton = true;
                         $(".request_button").show();
                         axios({
                             url: api + 'calendar/make-holiday-request',

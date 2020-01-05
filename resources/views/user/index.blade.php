@@ -10,8 +10,12 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <a href="/admin/users/create">Create</a></p>
+                    <br />
+                    <a class="col-md-2" href="/admin/users/create">
+                        <button class="btn btn-success col-md-12" value="Create">Create</button>
+                    </a>
 
+                    <br />
                     <div id="tabs">
                         <ul class='tabs'>
                             <li><a href='#tabs-1'>Users (Active) ({{ $usersActive->count() }})</a></li>
@@ -54,7 +58,7 @@
                                     <tr>
                                         <td class='no'>{{ $x++ }}</td>
                                         <td class='name'>{{ $user->name }}</td>
-                                        <td class=''><a href="/admin/users/{{ $user->id }}">View</a></td>
+                                        <td class=''><a href="/admin/users/{{ $user->uuid }}">View</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -80,7 +84,7 @@
     <script>
         $(document).ready(function() {
             $("#tabs").tabs();
-            $("#users").addClass("active");
+            //$("#users").addClass("active");
             $('.myTable').dataTable();
         });
     </script>

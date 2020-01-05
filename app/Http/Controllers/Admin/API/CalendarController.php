@@ -179,7 +179,7 @@ class CalendarController extends Controller
         $holiday->save();
 
         // let us send an email
-        
+
         return response()->json([
             'success' => true
         ]);

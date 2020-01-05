@@ -26,6 +26,7 @@
             <div id="keys_container" style="text-align:center;">
                 <span class='weekday key'>Available</span>
                 <span class='unavailable key'>Unavailable</span>
+                <span class='declined key'>Declined</span>
                 <span class='bank_holiday key'>Bank Holiday</span>
                 <span class='pastday key'>Past Day</span>
                 <span class='request key'>Day Request</span>
@@ -79,64 +80,74 @@
                     @php $date_booked = date('z') @endphp
                     @foreach ($months as $month)
                         <div class='monthly_container'>
-                        @foreach ($days as $day)
-                            @if ($day->month == $month)
-                                @php $day->day = day($day->day) @endphp
-                                @if (!$day->holidaysForUser->isEmpty())
-                                    @if ($day->holidaysForUser[0]->booked == 'Request sent' && $day->holidaysForUser[0]->stage == 'Accepted')
-                                        <span class='booked' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
-                                    @elseif ($day->holidaysForUser[0]->booked == 'Half Request sent' && $day->holidaysForUser[0]->stage == 'Accepted')
-                                        <span class='halfbooked' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
-                                    @elseif ($day->holidaysForUser[0]->booked == 'Request' && $day->holidaysForUser[0]->stage == '')
-                                        @if ($day->id <= $date_booked)
+                            @foreach ($days as $day)
+                                @if ($day->month == $month)
+                                    @php $day->day = day($day->day) @endphp
+                                    @if (!$day->holidaysForUser->isEmpty())
+                                        @if ($day->holidaysForUser[0]->booked == 'Request sent' && $day->holidaysForUser[0]->stage == 'Accepted')
+                                            <span class='booked' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
+                                        @elseif ($day->holidaysForUser[0]->booked == 'Request sent' && $day->holidaysForUser[0]->stage == 'Declined')
+                                            @if ($day->id <= $date_booked)
+                                                <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
+                                            @else
+                                                <span class="declined" id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
+                                            @endif
+                                        @elseif ($day->holidaysForUser[0]->booked == 'Half Request sent' && $day->holidaysForUser[0]->stage == 'Accepted')
+                                            <span class='halfbooked' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
+                                        @elseif ($day->holidaysForUser[0]->booked == 'Half Request sent' && $day->holidaysForUser[0]->stage == 'Declined')
+                                            @if ($day->id <= $date_booked)
+                                                <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
+                                            @else
+                                                <span class="declined" id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
+                                            @endif
+                                        @elseif ($day->holidaysForUser[0]->booked == 'Request' && $day->holidaysForUser[0]->stage == '')
+                                            @if ($day->id <= $date_booked)
+                                                <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
+                                            @else
+                                                <span class='request' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
+                                            @endif
+                                        @elseif ($day->holidaysForUser[0]->booked == 'Half Request' && $day->holidaysForUser[0]->stage == '')
+                                            @if ($day->id <= $date_booked)
+                                                <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
+                                            @else
+                                                <span class='halfrequest' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
+                                            @endif
+                                        @elseif ($day->holidaysForUser[0]->booked == 'Request sent' && $day->holidaysForUser[0]->stage == '')
+                                            @if ($day->id <= $date_booked)
+                                                <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
+                                            @else
+                                                <span class='request_sent' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
+                                            @endif
+                                        @elseif ($day->holidaysForUser[0]->booked == 'Half Request sent' && $day->holidaysForUser[0]->stage == '')
+                                            @if ($day->id <= $date_booked)
+                                                <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
+                                            @else
+                                                <span class='halfrequest_sent' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
+                                            @endif
+                                        @elseif ($day->bank_holiday == 'Y')
+                                            <span id='{{ $day->id }}' class='bank_holiday'><label>{{ $day->day }}</label></span>
+                                        @elseif ($day->bank_holiday == 'Unavailable')
+                                            echo("<span id='{{ $day->id }}' class='unavailable'><label>{{ $day->day }}</label></span>");
+                                        @elseif ($day->id <= $date_booked)
                                             <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
                                         @else
-                                            <span class='request' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
+                                            <span id='{{ $day->id }}' class='weekday'><label>{{ $day->day }}</label></span>
                                         @endif
-                                    @elseif ($day->holidaysForUser[0]->booked == 'Half Request' && $day->holidaysForUser[0]->stage == '')
-                                        @if ($day->id <= $date_booked)
-                                            <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
-                                        @else
-                                            <span class='halfrequest' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
-                                        @endif
-                                    @elseif ($day->holidaysForUser[0]->booked == 'Request sent' && $day->holidaysForUser[0]->stage == '')
-                                        @if ($day->id <= $date_booked)
-                                            <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
-                                        @else
-                                            <span class='request_sent' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
-                                        @endif
-                                    @elseif ($day->holidaysForUser[0]->booked == 'Half Request sent' && $day->holidaysForUser[0]->stage == '')
-                                        @if ($day->id <= $date_booked)
-                                            <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
-                                        @else
-                                            <span class='halfrequest_sent' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
-                                        @endif
-                                    @elseif ($day->bank_holiday == 'Y')
-                                        <span id='{{ $day->id }}' class='bank_holiday'><label>{{ $day->day }}</label></span>
-                                    @elseif ($day->bank_holiday == 'Unavailable')
-                                        echo("<span id='{{ $day->id }}' class='unavailable'><label>{{ $day->day }}</label></span>");
-                                    @elseif ($day->id <= $date_booked)
-                                        <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
                                     @else
-                                        <span id='{{ $day->id }}' class='weekday'><label>{{ $day->day }}</label></span>
-                                        {{--<span id='{{ $day->id }}' v-bind:class="{ request: isRequest, halfrequest : isHalfRequest }" @mousedown="makeRequest({{ $day->id }})" @mouseup="makeRequestUp({{ $day->id }})" class='weekday'><label>{{ $day->day }}</label></span>--}}
-                                    @endif
-                                @else
-                                    @if ($day->bank_holiday == 'Y')
-                                        <span id='{{ $day->id }}' class='bank_holiday'><label>{{ $day->day }}</label></span>
-                                    @elseif ($day->bank_holiday == 'Unavailable')
-                                        <span id='{{ $day->id }}' class='unavailable'><label>{{ $day->day }}</label></span>
-                                    @elseif ($day->id <= $date_booked)
-                                        <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
-                                    @else
-                                        <span id='{{ $day->id }}' class='weekday'><label>{{ $day->day }}</label></span>
-                                        {{--<span id='{{ $day->id }}' v-bind:class="{ request: isRequest, halfrequest : isHalfRequest }" @mousedown="makeRequest({{ $day->id }})" @mouseup="makeRequestUp({{ $day->id }})" class='weekday'><label>{{ $day->day }}</label></span>--}}
-                                    @endif
+                                        @if ($day->bank_holiday == 'Y')
+                                            <span id='{{ $day->id }}' class='bank_holiday'><label>{{ $day->day }}</label></span>
+                                        @elseif ($day->bank_holiday == 'Unavailable')
+                                            <span id='{{ $day->id }}' class='unavailable'><label>{{ $day->day }}</label></span>
+                                        @elseif ($day->id <= $date_booked)
+                                            <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
+                                        @else
+                                            <span id='{{ $day->id }}' class='weekday'><label>{{ $day->day }}</label></span>
+                                        @endif
                                     @endif
                                 @endif
-                        @endforeach
+                            @endforeach
                         </div>
-                        @endforeach
+                    @endforeach
                     </div>
 
                     <div id='dates_right'>

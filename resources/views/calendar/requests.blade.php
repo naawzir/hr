@@ -1,55 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>2020 Holiday Calendar</title>
+@extends('layouts.app')
+@section('styles')
     <link type="text/css" rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-    <!--end of CSS-->
-</head>
-
-<body>
+@endsection
+@section('content')
+    <div class="container">
 
 <div id="requests">
-    <div id="calendar_wrapper" style="margin:0 auto;">
-        <div id="userId" style="display:none;">{{ \Auth::user()->uuid }}</div>
-    </div>
+    <div id="userId" style="display:none;">{{ \Auth::user()->uuid }}</div>
     <div id="content_wrapper" style="margin:0 auto;">
-        <div id="content" style="margin:0 auto;">
+        <div style="margin:0 auto;">
             <div id="content_title">
                 <h1>Requests</h1>
-{{--                <h1>pending - @{{ pending }}</h1>
-                <h1>allPending - @{{ allPending }}</h1>
-                <br />
-                <h1>accepted - @{{ accepted }}</h1>
-                <h1>allAccepted - @{{ allAccepted }}</h1>
-                <br />
-                <h1>declined - @{{ declined }}</h1>
-                <h1>allDeclined - @{{ allDeclined }}</h1>--}}
             </div><!--end of content_title-->
 
                 <div id="tabs">
                     <ul class='tabs'>
-                        <li><a href='#tabs-1'>Requests pending (sent) ({{ $holidaysPending->count() }}</a></li>
-                        <li><a href='#tabs-2'>Requests accepted ({{ $holidaysAccepted->count() }})</a></li>
-                        <li><a href='#tabs-3'>Requests declined ({{ $holidaysDeclined->count() }})</a></li>
+                        <li><a href='#tabs-1' @click="showTable()">Requests pending (sent) ({{ $holidaysPending->count() }}</a></li>
+                        <li><a href='#tabs-2' @click="showTable()">Requests accepted ({{ $holidaysAccepted->count() }})</a></li>
+                        <li><a href='#tabs-3' @click="showTable()">Requests declined ({{ $holidaysDeclined->count() }})</a></li>
                     </ul>
-
                     <div id='tabs-1'><!-- pending -->
                         <table class='myTable tablesorter'>
                             <thead>
-                            <tr>
-                                <th style='width: 5%; position: relative;'>
-                                    <input type='checkbox' id='selectAllPending' v-model="allPending" @click="selectAllPending()" />
-                                </th>
-                                <th class='no'>No</th>
-                                <th class='name'>Name</th>
-                                <th class='job_title'>Date Sent</th>
-                                <th class='department'>Holiday Date</th>
-                                <th class='booked'>Full/Half Day</th>
-                                <th>Accept / Decline</th>
-                            </tr>
-
+                                <tr>
+                                    <th style='width: 5%; position: relative;'>
+                                        <input type='checkbox' v-if="pendingRequests" v-model="allPending" @click="selectAllPending()" />
+                                    </th>
+                                    <th class='no'>No</th>
+                                    <th class='name'>Name</th>
+                                    <th class='job_title'>Date Sent</th>
+                                    <th class='department'>Holiday Date</th>
+                                    <th class='booked'>Full/Half Day</th>
+                                    <th>Accept / Decline</th>
+                                </tr>
                             </thead>
                             <tbody>
                             @php $x = 1; @endphp
@@ -63,7 +48,7 @@
                                 @endphp
                                 <tr>
                                     <td class='checkbox-custom checkbox-primary mb5'>
-                                        <input type='checkbox' class='acceptedCheckbox' v-model="pending" @click="pendingClicked($event, {{ $hol->holiday_id }})" value='{{ $hol->holiday_id }}' />
+                                        <input type='checkbox' class='undecidedCheckbox' v-model="pending" value='{{ $hol->holiday_id }}' />
                                     </td>
                                     <td class='no'>{{ $x++ }}</td>
                                     <td class='name'>{{ $hol->user->name }}</td>
@@ -83,18 +68,17 @@
                     <div id='tabs-2'><!-- accepted -->
                         <table class='myTable tablesorter'>
                             <thead>
-                            <tr>
-                                <th style='width: 5%; position: relative;'>
-                                    <input type='checkbox' id='selectAllAccepted' v-model="allAccepted" @click="selectAllAccepted()" />
-                                </th>
-                                <th class='no'>No</th>
-                                <th class='name'>Name</th>
-                                <th class='job_title'>Date Sent</th>
-                                <th class='department'>Holiday Date</th>
-                                <th class='booked'>Full/Half Day</th>
-                                <th class='decline'>Decline</th>
-                            </tr>
-
+                                <tr>
+                                    <th style='width: 5%; position: relative;'>
+                                        <input type='checkbox' v-if="acceptedRequests" id='selectAllAccepted' v-model="allAccepted" @click="selectAllAccepted()" />
+                                    </th>
+                                    <th class='no'>No</th>
+                                    <th class='name'>Name</th>
+                                    <th class='job_title'>Date Sent</th>
+                                    <th class='department'>Holiday Date</th>
+                                    <th class='booked'>Full/Half Day</th>
+                                    <th class='decline'>Decline</th>
+                                </tr>
                             </thead>
                             <tbody>
                             @php $x = 1; @endphp
@@ -108,7 +92,7 @@
                                 @endphp
                                 <tr>
                                     <td class='checkbox-custom checkbox-primary mb5'>
-                                        <input type='checkbox' class='acceptedCheckbox' v-model="accepted" @click="acceptedClicked($event, {{ $hol->holiday_id }})" value='{{ $hol->holiday_id }}' />
+                                        <input type='checkbox' class='acceptedCheckbox' v-model="accepted" value='{{ $hol->holiday_id }}' />
                                     </td>
                                     <td class='no'>{{ $x++ }}</td>
                                     <td class='name'>{{ $hol->user->name }}</td>
@@ -127,18 +111,17 @@
                     <div id='tabs-3'><!-- declined -->
                         <table class='myTable tablesorter'>
                             <thead>
-                            <tr>
-                                <th style='width: 5%; position: relative;'>
-                                    <input type='checkbox' id='selectAllDeclined' v-model="allDeclined" @click="selectAllDeclined()"  />
-                                </th>
-                                <th class='no'>No</th>
-                                <th class='name'>Name</th>
-                                <th class='job_title'>Date Sent</th>
-                                <th class='department'>Holiday Date</th>
-                                <th class='booked'>Full/Half Day</th>
-                                <th class='decline'>Decline</th>
-                            </tr>
-
+                                <tr>
+                                    <th style='width: 5%; position: relative;'>
+                                        <input type='checkbox' v-if="declinedRequests" v-model="allDeclined" @click="selectAllDeclined()"  />
+                                    </th>
+                                    <th class='no'>No</th>
+                                    <th class='name'>Name</th>
+                                    <th class='job_title'>Date Sent</th>
+                                    <th class='department'>Holiday Date</th>
+                                    <th class='booked'>Full/Half Day</th>
+                                    <th class='decline'>Decline</th>
+                                </tr>
                             </thead>
                             <tbody>
                             @php $x = 1; @endphp
@@ -169,13 +152,16 @@
                     </div>
                 </div>
                 <br>
-                <button id='accept_button' class="request_button hidden" @click="acceptHolidayRequests()">Accept</button>
-                <button id='decline_button' class="request_button hidden" @click="declineHolidayRequests()">Decline</button>
+                <button v-if="acceptButton" class="request_button" @click="acceptHolidayRequests()">Accept</button>
+                <button v-if="declineButton" class="request_button" @click="declineHolidayRequests()">Decline</button>
             <div class='clear'></div>
         </div><!--end of content-->
     </div><!--end of content_wrapper-->
 </div>
+</div>
+@endsection
 
+@section('scripts')
 <!--JavaScript-->
 <script src="/js/requests.js"></script>
 {{--<script src="/js/jquery.min.js"></script>--}}
@@ -190,5 +176,4 @@
         $('.myTable').dataTable();
     });
 </script>
-</body>
-</html>
+@endsection
