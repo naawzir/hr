@@ -1,0 +1,1684 @@
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	/*font-family: 'Roboto', sans-serif;*/
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.request_button{
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f2f5f6+0,e3eaed+37,c8d7dc+100;Grey+3D+%234 */
+background: rgb(242,245,246); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(242,245,246,1) 0%, rgba(227,234,237,1) 37%, rgba(200,215,220,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(242,245,246,1) 0%,rgba(227,234,237,1) 37%,rgba(200,215,220,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(242,245,246,1) 0%,rgba(227,234,237,1) 37%,rgba(200,215,220,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f5f6', endColorstr='#c8d7dc',GradientType=0 ); /* IE6-9 */
+border-radius:5px;
+color:#000000;
+border:0px;
+padding:7px;
+width:100px;
+font-weight:bold;
+box-shadow:0px 0px 10px #000;
+text-align:center;
+font-size:12px;
+}
+
+.request_button:hover
+{
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b8c6df+0,6d88b7+100;Grey+Blue+3D+%231 */
+background: rgb(184,198,223); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(184,198,223,1) 0%, rgba(109,136,183,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(184,198,223,1) 0%,rgba(109,136,183,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(184,198,223,1) 0%,rgba(109,136,183,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b8c6df', endColorstr='#6d88b7',GradientType=0 ); /* IE6-9 */
+
+cursor:pointer;
+}
+
+#newsport
+{
+width:312px!important;
+margin:0 auto!important;
+}
+
+#submit_newsport
+{
+display:block!important;
+margin:20px auto 0px auto!important;
+}
+
+#submit_newsport:hover
+{
+cursor:pointer;
+background:#f39b11;
+}
+
+#newrespon
+{
+width:312px!important;
+margin:0 auto!important;
+}
+
+#submit_newrespon
+{
+display:block!important;
+margin:20px auto 0px auto!important;
+}
+
+#submit_newrespon:hover
+{
+cursor:pointer;
+background:#f39b11;
+}
+
+
+.buttons
+{
+position:absolute;
+right:20px;
+top:20px;
+
+}
+
+.new_button
+{
+float:right;
+background:#e7e7e7;
+color:#fff;
+border:0px;
+border-radius:20px;
+font-weight:bold;
+margin:0px 0px 20px 0px;
+border:1px solid #000;
+}
+
+.new_button a
+{
+text-decoration:none;
+display:block;
+padding:16px;
+}
+
+.new_button:hover
+{
+background:#cdcdcd;
+}
+
+.back
+{
+margin-right:8px;
+}
+
+.form_breakdown
+{
+padding:20px 0px 30px 0px;
+box-shadow:0px 0px 10px #000;
+margin:0px auto 30px auto;
+width:980px;
+background:#f5f6f7;
+}
+
+.form_subtitle
+{
+font-size:29px;
+margin:0px 0px 8px 200px;
+
+}
+
+.form_paragraph
+{
+margin:0px 0px 0px 200px;
+}
+
+#orderdate
+{
+margin:0px 0px 0px 200px;
+}
+
+#choose
+{
+width:200px;
+height:30px;
+margin:0px 0px 10px 0px;
+}
+
+.hidden
+{
+display:none;
+}
+
+#username
+{
+color:#fff;
+width:100px;
+height:20px;
+position:absolute;
+top:-40px;
+right:186px;
+text-align:right;
+}
+
+#login_check
+{/*
+width:300px;
+height:200px;
+background:red;*/
+}
+
+#st_contacts
+{
+width:320px;
+min-height:40px;
+background:#fff;
+position:absolute;
+top:380px;
+left:200px;
+z-index:5;
+box-shadow:0px 0px 10px #000;
+padding:10px;
+font-size:14px;
+}
+
+#st_contact
+{
+width:320px;
+min-height:40px;
+background:#fff;
+position:absolute;
+top:385px;
+left:200px;
+z-index:5;
+box-shadow:0px 0px 10px #000;
+padding:10px;
+font-size:14px;
+}
+
+#st_contact p span
+{
+min-width:95px;
+display:inline-block;
+}
+
+#st_contacts p span
+{
+min-width:95px;
+display:inline-block;
+}
+
+#st_result p span
+{
+min-width:95px;
+display:inline-block;
+}
+
+
+#st_contactsinfo p span
+{
+min-width:95px;
+display:inline-block;
+}
+
+
+
+.viewmore
+{
+
+width:26px;
+height:26px;
+float:right;
+margin:-20px -12px 0px 0px;
+}
+
+.contactinfotarget_links
+{
+width:100px;
+height:26px;
+position:relative;
+margin:5px 0px 0px 0px;
+}
+
+.contactinfotarget_links p
+{
+margin:0px 4px 0px 0px;
+display:inline-block; 
+}
+
+.add_targetnotes_link
+{
+position:relative;
+}
+
+.targetnotes_links
+{
+width:120px;
+height:26px;
+position:absolute;
+right:-72px;
+}
+
+.target_links
+{
+width:200px;
+height:26px;
+position:relative;
+
+margin:5px 0px 0px 0px;
+}
+
+.target_links p
+{
+margin:0px 4px 0px 0px;
+display:inline-block; 
+}
+
+.clicktest:hover, .contactinfo:hover
+{
+cursor:pointer;
+}
+
+.targetnotes_links p
+{
+margin:0px 4px 0px 0px;
+display:inline-block; 
+}
+
+/*****DOB*****/
+.od_date
+{
+width:30px !important;
+height:20px;
+margin:2px 0px 0px 0px!important;
+display:inline! important;
+}
+
+.od_month
+{
+width:30px !important;
+height:20px;
+margin:0px 0px 0px 0px!important;
+display:inline! important;
+}
+
+.od_year
+{
+width:70px !important;
+height:20px;
+margin:0px 0px 18px 0px!important;
+display:inline! important;
+}
+/*****DOB*****/
+
+#header_wrapper
+{
+width: 100%;
+height:105px;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#87e0fd+0,53cbf1+40,05abe0+100;Blue+3D+%23+16 */
+background: #2EA8D3;
+border-bottom:1px solid #000;
+position:fixed;
+z-index:10;
+}
+
+#header
+{
+width:1140px;
+height:60px;
+margin:0px auto 0px auto;
+padding:15px 0px 0px 0px;
+background:transparent;
+position:relative;
+}
+
+#navigation_wrapper
+{
+width:auto;
+height:inherit;
+min-height:80px;
+background:#484848;
+
+position:relative;
+padding-top:60px;
+}
+
+#navigation
+{
+border:1px solid red;
+width:1140px;
+height:inherit;
+margin:0 auto;
+position:relative;
+background:transparent;
+}
+
+nav#master
+{
+position:fixed;
+top:66px;
+left:590px;
+width:690px;
+}
+
+nav#admin
+{
+position:fixed;
+top:66px;
+left:400px;
+width:560px;
+}
+
+nav ul {
+
+  margin: 0px 0px 0px 0px;
+  padding:0;
+  list-style: none;
+}
+.nav a {
+  display:block; 
+  background: #484848;
+  color: #fff; 
+  text-decoration: none;
+  padding: 0.9em 0.7em;
+  text-transform: uppercase;
+  font-size: 14px;
+  position: relative;
+}
+
+
+.nav{  
+  vertical-align: top; 
+  display: inline-block;
+  border-radius:6px;
+}
+.nav li {
+  position: relative;
+}
+.nav > li { 
+  float: left; 
+  margin-right: 1px; 
+} 
+.nav > li > a { 
+  margin-bottom: -0.9px;
+}
+.nav > li:hover, 
+.nav > li:hover > a { 
+  border-bottom-color: #2EA8D3;
+}
+.nav li:hover > a {  
+}
+.nav > li:first-child { 
+  border-radius: 4px 0 0 4px;
+} 
+.nav > li:first-child > a { 
+  border-radius: 4px 0 0 0;
+}
+.nav > li:last-child { 
+  border-radius: 0 0 4px 0; 
+  margin-right: 0;
+} 
+.nav > li:last-child > a { 
+  border-radius: 0 4px 0 0;
+}
+.nav li li a { 
+  margin-top: 1px;
+}
+
+.nav li a:first-child:nth-last-child(2):before { 
+  content: ""; 
+  position: absolute; 
+  height: 0; 
+  width: 0; 
+  border: 5px solid transparent; 
+  top: 50% ;
+  right:0px;  
+ }
+ 
+.ui-tabs-active
+{
+background:#2EA8D3!important;
+
+}
+
+.ui-tabs-active .ui-tabs-anchor
+{
+color:#fff!important;
+}
+ 
+/* submenu positioning*/
+.nav ul {
+  position: absolute;
+  white-space: nowrap;
+  border-bottom: 5px solid  #2EA8D3;
+  z-index: 1;
+  left: -99999em;
+}
+.nav > li:hover > ul {
+  left: auto;
+  margin-top: 0px;
+  min-width: 100%;
+}
+.nav > li li:hover > ul { 
+  left: 100%;
+  margin-left: 1px;
+  top: -1px;
+}
+/* arrow hover styling */
+.nav > li > a:first-child:nth-last-child(2):before { 
+  border-top-color: #aaa; 
+}
+.nav > li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent; 
+  border-bottom-color: #2EA8D3; 
+  margin-top:-5px
+}
+.nav li li > a:first-child:nth-last-child(2):before {  
+  border-left-color: #aaa; 
+  margin-top: -5px
+}
+.nav li li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent; 
+  border-right-color: #2EA8D3;
+  right: 10px; 
+}
+
+nav span.link
+{
+float:left;
+line-height:125px;
+display:inline-block;
+}
+
+
+
+.active
+{
+background:#2E4877!important;
+}
+
+nav span a:hover
+{
+
+}
+
+#main_nav a#first_link
+{
+border-top-left-radius:4px;
+border-bottom-left-radius:4px;
+}
+
+#main_nav a#last_link
+{
+border-top-right-radius:4px;
+border-bottom-right-radius:4px;
+}
+
+#main_nav a:hover
+{
+text-decoration:underline;
+color:#ffffff;
+background:red;
+}
+
+
+
+#content_wrapper
+{
+width:auto;
+height:inherit;
+min-height:750px;
+background:#fcfcfc;
+position:relative;
+}
+
+#content
+{
+width:1100px;
+
+height:inherit;
+margin:0 auto;
+padding:180px 0px 40px 0px;
+background:transparent;
+position:relative;
+}
+
+h1
+{
+font-size:28px!important;
+margin:0px 0px 20px 0px!important;
+text-align:center;
+}
+
+#result
+{
+width:320px;
+min-height:100px;
+background:#fff;
+position:absolute;
+top:330px;
+left:400px;
+z-index:5;
+box-shadow:0px 0px 10px #000;
+padding:10px;
+font-size:14px;
+}
+
+#st_result
+{
+width:320px;
+min-height:100px;
+background:#fff;
+position:absolute;
+top:380px;
+left:200px;
+z-index:5;
+box-shadow:0px 0px 10px #000;
+padding:10px;
+font-size:14px;
+}
+
+#st_files_result
+{
+width:320px;
+min-height:40px;
+background:#fff;
+position:absolute;
+top:380px;
+left:600px;
+z-index:5;
+box-shadow:0px 0px 10px #000;
+padding:10px;
+font-size:14px;
+}
+
+#notes_result
+{
+width:280px;
+min-height:40px;
+background:#fff;
+position:absolute;
+top:330px;
+left:400px;
+z-index:5;
+box-shadow:0px 0px 10px #000;
+padding:10px;
+font-size:14px;
+}
+
+#notes_result p span
+{
+min-width:80px;
+display:inline-block;
+}
+
+#notes_result p
+{
+
+}
+
+#result p span
+{
+min-width:110px;
+display:inline-block;
+}
+
+.close_result_div
+{
+width:30px;
+height:30px;
+font-size:18px;
+color:#000;
+position:absolute;
+top:330px;
+right:235px;
+text-align:center;
+z-index:5;
+cursor:pointer;
+}
+
+.close_notes_div
+{
+width:30px;
+height:30px;
+font-size:18px;
+color:#000;
+position:absolute;
+top:335px;
+right:280px;
+text-align:center;
+z-index:5;
+cursor:pointer;
+}
+
+.st_close_messages_div
+{
+width:22px;
+height:22px;
+font-size:18px;
+color:#000;
+text-align:center;
+z-index:15px;
+cursor:pointer;
+float:right;
+margin-top:-10px;
+}
+
+.st_close_files_div
+{
+width:22px;
+height:22px;
+font-size:18px;
+color:#000;
+text-align:center;
+z-index:15px;
+cursor:pointer;
+float:right;
+margin-top:-5px;
+}
+
+.target_links p
+{
+display:inline-block;
+margin:0px 10px 0px 0px!important;
+}
+
+.viewmore
+{
+
+width:26px;
+height:26px;
+float:right;
+margin:-25px -5px 0px 0px;
+}
+
+.addcontact
+{
+margin:10px 0px 0px 0px;
+}
+
+.contactinfotarget_links
+{
+width:100px;
+height:26px;
+position:relative;
+
+margin:9px 0px 0px 0px;
+}
+
+#tabs
+{
+width:1100px;
+}
+
+/***AJAX DIVS***/
+#club_name
+{
+margin:0px 0px 1px 0px;
+font-size:17px;
+}
+
+
+
+#st_notes_result
+{
+width:1030px;
+min-height:30px;
+background:#fff;
+position:absolute;
+top:380px;
+left:30px;
+z-index:5;
+box-shadow:0px 0px 10px #000;
+padding:10px;
+font-size:14px;
+padding-top:20px;
+}
+
+#st_notes_result p span
+{
+min-width:80px;
+display:inline-block;
+font-size:14px;
+margin:0px 0px 0px 0px;
+}
+
+#st_notes_result p.target_note
+{
+width:980px;
+word-wrap: break-word;
+}
+
+
+#st_messages_result
+{
+width:480px;
+min-height:30px;
+background:#fff;
+position:absolute;
+top:480px;
+left:480px;
+z-index:5;
+box-shadow:0px 0px 10px #000;
+padding:10px;
+font-size:14px;
+padding-top:20px;
+}
+
+#st_messages_result p span
+{
+min-width:80px;
+display:inline-block;
+font-size:14px;
+margin:0px 0px 0px 0px;
+}
+
+#st_messages_result p.target_note
+{
+width:430px;
+word-wrap: break-word;
+}
+
+
+
+#st_contactsinfo
+{
+width:330px;
+min-height:100px;
+background:#fff;
+position:absolute;
+top:380px;
+left:550px;
+z-index:5;
+box-shadow:0px 0px 10px #000;
+padding:10px;
+font-size:14px;
+}
+
+.st_close_result_div
+{
+width:22px;
+height:22px;
+font-size:18px;
+color:#000;
+text-align:center;
+z-index:15px;
+cursor:pointer;
+float:right;
+}
+
+.st_close_contact_div
+{
+width:22px;
+height:22px;
+font-size:18px;
+color:#000;
+text-align:center;
+z-index:15px;
+cursor:pointer;
+float:right;
+margin-top:-5px;
+}
+
+.st_close_contacts_div
+{
+width:22px;
+height:22px;
+font-size:18px;
+color:#000;
+text-align:center;
+z-index:15px;
+cursor:pointer;
+float:right;
+margin-top:-5px;
+}
+
+.st_close_contactsinfo_div
+{
+width:22px;
+height:22px;
+font-size:18px;
+color:#000;
+text-align:center;
+z-index:15px;
+cursor:pointer;
+float:right;
+}
+
+.st_close_notes_div
+{
+width:22px;
+height:22px;
+font-size:18px;
+color:#000;
+text-align:center;
+z-index:15px;
+cursor:pointer;
+float:right;
+margin-top:-10px;
+}
+
+
+/***AJAX DIVS***/
+
+
+
+
+
+
+/***table styling***/
+#myTable_length
+{
+
+margin:0px 0px 20px 0px;
+}
+
+#myTable_length select
+{
+width:80px;
+height:30px;
+}
+
+#myTable_filter input[type='search']
+{
+width:220px;
+height:35px;
+}
+
+#myTable_info
+{
+
+margin:20px 0px 0px 0px;
+}
+
+#myTable_paginate
+{
+
+margin:20px 0px 0px 0px;
+}
+
+table
+{
+
+margin:0px 0px 0px 0px;
+box-shadow:0px 0px 10px #000;
+}
+
+
+
+table tr
+{
+font-size:14px;
+text-align:center;
+line-height:19px;
+
+}
+
+table td
+{
+font-size:13px;
+text-align:center;
+border-bottom:1px solid gray;
+
+}
+
+table th:hover
+{
+cursor:pointer;
+}
+
+table.dataTable tbody th, table.dataTable tbody td
+{
+/*padding:4px 10px!important;*/
+}
+
+.dataTables_length
+{
+margin:0px 0px 30px 0px;
+}
+
+.ui-tabs-anchor
+{
+font-size:11px;
+padding:10px 2px!important;
+}
+
+table.dataTable
+{
+margin:0px auto 20px auto!important;
+}
+
+table.dataTable tr.odd { background: #f5f6f7;  border:1px lightgrey!important;}
+table.dataTable tr.even{ background: #fff; border:1px lightgrey!important; }
+
+table#myTable2 tr.odd { background: #FFC9A6;  border:1px lightgrey!important;}
+table#myTable2 tr.even{ background: #fff; border:1px lightgrey!important; }
+
+.update
+{
+width:30px;
+}
+
+.category
+{
+width:240px;
+}
+
+.name
+{
+width:170px;
+
+}
+
+.club
+{
+width:170px;
+/*white-space: nowrap;*/
+}
+
+.club:hover
+{
+cursor:pointer;
+}
+
+.sport_cat
+{
+width:160px;
+white-space: nowrap;
+}
+
+.sport
+{
+width:120px;
+}
+
+.fullname
+{
+width:200px;
+}
+
+.fullname:hover
+{
+cursor:pointer;
+}
+
+.role
+{
+width:180px;
+}
+
+.email
+{
+width:110px;
+}
+
+.telephone
+{
+width:90px;
+
+}
+
+.mobile
+{
+width:90px;
+
+}
+
+.restore
+{
+width:20px;
+}
+
+.stadium
+{
+width:350px;
+}
+
+.notes
+{
+width:40px;
+
+}
+
+.notes:hover
+{
+cursor:pointer;
+}
+
+.note
+{
+width:580px;
+}
+
+.messages
+{
+width:40px;
+}
+
+.messages:hover
+{
+cursor:pointer;
+}
+
+.contacts
+{
+width:20px;
+cursor:pointer;
+}
+
+.files
+{
+width:310px;
+cursor:pointer;
+}
+
+.firstcontact
+{
+width:110px;
+}
+
+#cover {
+margin:-50px 0px 0px 0px;
+    position: absolute;
+    height: 150px;
+    width: 980px;
+}
+
+.lastcontact
+{
+width:110px;
+}
+
+.responsibility
+{
+width:110px;
+white-space: nowrap;
+}
+
+.moveup
+{
+width:75px;
+}
+
+.movedown
+{
+width:100px;
+
+}
+
+.movetoprospects
+{
+width:25px;
+
+}
+
+
+
+.icons
+{
+width:200px;
+}
+
+.icons img
+{
+margin:0px 9px 0px 0px;
+}
+
+.icons img.delete
+{
+margin-left:-3px;
+margin-right:0px!
+}
+
+#new_note
+{
+
+background:#2EA8D3;
+color:#fff;
+border:0px;
+padding:8px;
+width:110px;
+font-weight:bold;
+margin:0 0px 0px 0px;
+margin:0px 0px 0px 0px;
+}
+
+#new_note:hover
+{
+cursor:pointer;
+background:#f39b11;
+}
+
+#responsibility_p
+{
+width:580px;
+margin:0 auto;
+}
+
+
+/***HEADER CLUB AJAX SEARCH***/
+#club_header
+{
+width:300px;
+padding:10px 5px 10px 5px;
+position:absolute;
+right:50px;
+top:60px;
+background:#fff;
+}
+
+#club_header::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #B2B2B2;
+}
+#club_header:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #B2B2B2;
+    opacity:  1;
+}
+#club_header::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #B2B2B2;
+    opacity:  1;
+}
+#club_header:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #B2B2B2;
+}
+
+#autosuggest_header
+{
+box-shadow:0px 0px 10px #000;
+width:313px;
+position:absolute;
+top:101px;
+right:50px;
+z-index:5;
+font-size:12px;
+border-top:0px;
+border-bottom:0px;
+
+}
+
+#autosuggest_header li
+{
+list-style:none;
+padding:3px 0px 2px 3px;
+background:#fff;
+display:block!important;
+height:14px!important;
+width:auto;
+}
+
+#autosuggest_header li:last-child
+{
+padding:3px 0px 4px 3px;
+}
+
+#bluecross
+{
+
+position:absolute;
+right:58px;
+top:75px;
+}
+/***END OF HEADER CLUB AJAX SEARCH***/
+
+/***table styling***/
+
+#club_search p
+{
+
+font-size:40px;
+font-weight:bold;
+margin:0px 0px 20px 200px;
+color:red;
+}
+
+.back_loading
+{
+margin:0 auto;
+width:90px;
+}
+
+#title
+{
+margin:0px 0px 40px 0px;
+text-align:center;
+font-size:30px;
+text-transform:uppercase;
+
+}
+
+.last
+{
+margin:0px!important;
+}
+
+
+
+#password_reminder 
+{
+margin:30px 0px 0px 0px;
+text-align:center;
+font-style:italic;
+}
+
+#password_reminder a
+{
+color:#000;
+text-decoration:none;
+}
+
+
+
+#loading
+{
+margin:0 auto;
+width:300px;
+}
+
+.errors
+{
+font-weight:bold;
+color:red;
+line-height:20px;
+margin:0 auto;
+}
+
+.registered
+{
+font-weight:bold;
+text-align:center;
+padding:250px 0px 0px 0px;
+font-size:20px;
+}
+
+.target_error
+{
+font-weight:bold;
+font-size:20px;
+margin:70px 0px 0px 0px;
+color:red;
+text-align:center;
+}
+
+/******form*******/
+form#form
+{
+width:980px;
+min-height:100px;
+position:relative;
+margin:0 auto;
+padding:0px 0px 0px 0px;
+}
+
+form.fileupload
+{
+width:980px;
+min-height:100px;
+position:relative;
+margin:0 auto;
+padding:0px 0px 0px 0px;
+}
+
+.fileupload_input
+{
+width:500px;
+min-height:30px;
+}
+
+.fileupload_input .filename
+{
+background:#2EA8D3;
+font-size:14px;
+line-height:20px;
+margin:10px auto 20px auto;
+padding:15px;
+display:inline-block;
+width:450px;
+border:0px;
+box-shadow:0px 0px 10px #000;
+}
+
+form#form label
+{
+margin:0px 0px 5px 200px;
+display:block;
+}
+
+form#form h1
+{
+text-align:center!important;
+}
+
+
+form#form p span
+{
+width:130px;
+display:inline-block;
+
+}
+
+form#form input[type='text'], form#form input[type='email'], form#form input[type='password']
+{
+background:#2EA8D3;
+font-size:14px;
+line-height:20px;
+margin:0px auto 20px auto;
+padding:15px;
+display:block;
+width:550px;
+border:0px;
+box-shadow:0px 0px 10px #000;
+}
+
+.input_field
+{
+width:580px;
+min-height:30px;
+box-shadow:0px 0px 8px #000;
+margin:0px 0px 20px 200px;
+padding:10px 0px 0px 0px;
+background:#fff;
+}
+
+.input_field label
+{
+margin:0px 0px 0px 20px!important;
+}
+
+form#form input[type='file']
+{
+font-size:17px;
+line-height:20px;
+margin:0px 0px 0px 0px;
+padding:15px;
+display:block;
+width:550px;
+border:0px;
+
+}
+
+#responsibility
+{
+width:580px;
+height:60px;
+border:1px solid #cdcdcd;
+margin:7px auto 20px auto;
+display:block;
+font-size:15px;
+box-shadow:0px 0px 8px #000;
+}
+
+#responsibility option
+{
+line-height:20px;
+}
+
+#stage
+{
+width:580px;
+height:60px;
+border:1px solid #cdcdcd;
+margin:7px auto 20px auto;
+display:block;
+font-size:15px;
+box-shadow:0px 0px 8px #000;
+}
+
+#stage option
+{
+line-height:20px;
+}
+
+#sport_list
+{
+width:580px;
+height:60px;
+border:1px solid #cdcdcd;
+margin:7px auto 20px auto;
+display:block;
+font-size:15px;
+box-shadow:0px 0px 8px #000;
+}
+
+#sport_list option
+{
+line-height:20px;
+}
+
+textarea
+{
+background:#2EA8D3;
+font-size:14px;
+line-height:20px;
+font-family: 'Roboto', sans-serif;
+padding:15px;
+display:block;
+width:550px;
+height:130px;
+border:0px;
+margin:0px auto 20px auto;
+box-shadow:0px 0px 10px #000;
+resize:none;
+}
+
+#form h2
+{
+font-size:22px;
+text-align:center;
+margin:20px 0px 5px 0px;
+}
+
+.submit
+{
+background:#2EA8D3;
+color:#fff;
+border:0px;
+padding:16px;
+width:342px;
+font-weight:bold;
+margin:0px 0px 0px 200px;
+box-shadow:0px 0px 10px #000;
+}
+
+#submit
+{
+background:#2EA8D3;
+color:#fff;
+border:0px;
+padding:16px;
+width:342px;
+font-weight:bold;
+margin:0px 0px 0px 200px;
+box-shadow:0px 0px 10px #000;
+}
+
+#submit2
+{
+background:#2EA8D3;
+color:#fff;
+border:0px;
+padding:16px;
+width:342px;
+font-weight:bold;
+margin:20px 0px 30px 0px;
+box-shadow:0px 0px 10px #000;
+}
+
+#back
+{
+background:#2EA8D3;
+color:#fff;
+border:0px;
+padding:10px;
+width:182px;
+font-weight:bold;
+margin:0px 0px 0px 10px;
+}
+
+#submit:hover
+{
+cursor:pointer;
+background:#f39b11;
+}
+
+#submit2:hover
+{
+cursor:pointer;
+background:#f39b11;
+}
+
+
+#back:hover
+{
+cursor:pointer;
+background:#f39b11;
+}
+
+.edited_details
+{
+padding-left:0px!important;
+margin:0px 0px 20px 200px;
+
+}
+
+#submit_containerr
+{
+margin:30px 0px 0px 180px;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #fff;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #fff;
+    opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #fff;
+    opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #fff;
+}
+
+/******form*******/
+
+#back_t
+{
+display:block;
+background:#2EA8D3;
+color:#fff;
+border:0px;
+padding:10px;
+width:200px;
+font-weight:bold;
+margin:20px auto 0px auto;
+}
+
+#back_t:hover
+{
+cursor:pointer;
+background:#f39b11;
+}
+
+.saved
+{
+font-size:26px;
+margin:0px 0px 10px 0px;
+text-align:center;
+color:green;
+}
+
+.club_name
+{
+font-size:22px;
+font-weight:bold;
+text-align:center;
+margin:0px 0px 10px 0px;
+}
+
+/*.club_name
+{
+font-size:19px;
+
+padding:0px!important;
+text-align:center;
+}*/
+
+#footer_wrapper
+{
+width:auto;
+height:inherit;
+min-height:94px;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#87e0fd+0,53cbf1+40,05abe0+100;Blue+3D+%23+16 */
+background: #484848;
+border-top:1px solid #000;
+position:relative;
+}
+
+#footer
+{
+width:980px;
+height:inherit;
+margin:0 auto;
+background:transparent;
+position:relative;
+
+}
+
+.clear
+{
+clear:both;
+}
+
+.copyright
+{
+text-align:center;
+padding:30px 0px 0px 0px;
+font-weight:300;
+font-size:0.96em;
+line-height:2.0em;
+color:#fff;
+font-family: 'Roboto', sans-serif;
+}
