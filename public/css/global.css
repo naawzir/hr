@@ -563,7 +563,12 @@ color:#ffffff;
 background:red;
 }
 
-
+#navbar {
+    width: 100%;
+    position: fixed;
+    margin-bottom: 20px;
+    z-index:1000;
+}
 
 #content_wrapper
 {

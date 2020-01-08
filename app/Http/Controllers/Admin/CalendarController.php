@@ -7,17 +7,21 @@ use App\Holiday;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\UserTest;
 use Illuminate\Support\Facades\Validator;
 
 class CalendarController extends Controller
 {
+    protected $calendar;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Calendar $calendar)
     {
+        $this->calendar = $calendar;
         $this->middleware('auth');
     }
 
@@ -29,7 +33,7 @@ class CalendarController extends Controller
     public function index()
     {
         $user = \Auth::user();
-        $days = Calendar::with('holidaysForUser')->get();
+        $days = $this->calendar->with('holidaysForUser')->get();
         $months = [
             'Jan',
             'Feb',
@@ -49,6 +53,7 @@ class CalendarController extends Controller
             'days'     => $days,
             'months'   => $months,
         ];
+
         return view('calendar.index', $data);
     }
 

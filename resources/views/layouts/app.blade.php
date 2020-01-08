@@ -24,10 +24,10 @@
 </head>
 <body>
     <div>
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav id="navbar" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('images/logo-small.png') }}">
+                    <img style="visibility: hidden;" src="{{ asset('images/logo-small.png') }}">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -87,7 +87,7 @@
                 </div>
             </div>
         </nav>
-
+        <div style="height:100px;width:100%;"></div>
         <main class="py-4">
             @yield('content')
         </main>
