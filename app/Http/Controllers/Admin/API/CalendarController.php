@@ -25,7 +25,7 @@ class CalendarController extends Controller
 
     public function getRequests(Request $request)
     {
-        date_default_timezone_set('Europe/London');
+        /*date_default_timezone_set('Europe/London');
         $date_booked = date('z') + 1;
         //$date_booked = date('z');
         $holidaysPending = Holiday::whereNull('stage')
@@ -45,7 +45,7 @@ class CalendarController extends Controller
             'holidaysPending' => $holidaysPending,
             'holidaysAccepted'  => $holidaysAccepted,
             'holidaysDeclined'  => $holidaysDeclined,
-        ]);
+        ]);*/
     }
 
     public function makeHolidayRequest(Request $request)
@@ -111,13 +111,17 @@ class CalendarController extends Controller
         }
 
         $userName = $user->name;
-        /*$text = $userName . ' has submitted a holiday request for the following dates:';
-        $text .= html_entity_decode("\n") . implode("\n", $fullDayRequestedDates) . html_entity_decode("\n");
-        $text .= html_entity_decode("\n") . implode("\n", $halfDayRequestedDates) . html_entity_decode("\n");*/
-        $text = null;
+        $message = $userName . ' has submitted a holiday request for the following dates:';
+        $message .= html_entity_decode("\n") . implode("\n", $fullDayRequestedDates) . html_entity_decode("\n");
+        $message .= html_entity_decode("\n") . implode("\n", $halfDayRequestedDates) . html_entity_decode("\n");
+        //$text = null;
         // let us send an email
-        event(new sendEmailToHR($user, $text));
+        if (app()->isLocal()) {
+            event(new sendEmailToHR($user, $message));
+        } else {
+            // we'll send one email every hour only if at least one holiday request has been made in the previous hour
 
+        }
         return response()->json([
             'success' => true
         ]);
@@ -166,14 +170,14 @@ class CalendarController extends Controller
         }
 
         // let us send an email
-        $user = User::findOrFail(10);
+        /*$user = User::findOrFail(10);
         $userName = $user->name;
-        $text = 'Your holiday requests have been declined';
+        $text = 'Your holiday requests have been declined';*/
         //$text .= html_entity_decode("\n") . implode("\n", $fullDayRequestedDates) . html_entity_decode("\n");
         //$text .= html_entity_decode("\n") . implode("\n", $halfDayRequestedDates) . html_entity_decode("\n");
 
         // let us send an email
-        event(new sendEmailToEmployee($user, $text));
+        //event(new sendEmailToEmployee($user, $text));
 
         return response()->json([
             'success' => true
@@ -202,14 +206,14 @@ class CalendarController extends Controller
         $holiday->stage = 'Declined';
         $holiday->save();
 
-        $user = User::findOrFail(10);
+        /*$user = User::findOrFail(10);
         $userName = $user->name;
-        $text = 'Your holiday requests have been declined';
+        $text = 'Your holiday requests have been declined';*/
         //$text .= html_entity_decode("\n") . implode("\n", $fullDayRequestedDates) . html_entity_decode("\n");
         //$text .= html_entity_decode("\n") . implode("\n", $halfDayRequestedDates) . html_entity_decode("\n");
 
         // let us send an email
-        event(new sendEmailToEmployee($user, $text));
+        //event(new sendEmailToEmployee($user, $text));
 
         return response()->json([
             'success' => true

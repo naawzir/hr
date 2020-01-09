@@ -33,12 +33,13 @@ class emailHRHolidayRequestsSubmitted extends Mailable
      */
     public function build()
     {
+        $subject = $this->user->name ? 'Holidays submitted ('  . $this->user->name . ')' : 'Holidays submitted';
         return $this->view('email.holiday-requests-submitted')
             ->from('humanres321@gmail.com')
-            ->subject($this->user->firstname . ': submitted requests')
+            ->subject($subject)
             ->with([
-                'user'   => $this->user,
-                'message' => $this->message,
+                'text' => $this->message,
+                'user'    => $this->user,
             ]);
     }
 }

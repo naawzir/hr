@@ -59,20 +59,18 @@ class CalendarController extends Controller
 
     public function requests(Request $request)
     {
-        date_default_timezone_set('Europe/London');
-        $date_booked = date('z') + 1;
-        $holidaysPending = Holiday::whereNull('stage')
-            ->where('id', '>=', $date_booked)
-            ->where(function($q) {
-                $q->where('booked', 'Request sent')
-                    ->orWhere('booked', 'Half Request sent');
-            })
-            ->with('user')
-            ->get();
-
-        $holidaysAccepted = Holiday::where('stage', 'Accepted')->where('id', '>=', $date_booked)->get();
-        $holidaysDeclined = Holiday::where('stage', 'Declined')->where('id', '>=', $date_booked)->get();
-
+        //date_default_timezone_set('Europe/London');
+        //$date_booked = date('z') + 1;
+        $holidays = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])->get();
+        $holidaysPending = $holidays->filter(function ($value, $key) {
+            return is_null($value->stage);
+        });
+        $holidaysAccepted = $holidays->filter(function ($value, $key) {
+            return $value->stage == 'Accepted';
+        });
+        $holidaysDeclined = $holidays->filter(function ($value, $key) {
+            return $value->stage == 'Declined';
+        });
         $data = [
             'holidaysPending'  => $holidaysPending,
             'holidaysAccepted' => $holidaysAccepted,

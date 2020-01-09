@@ -37,7 +37,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @php $x = 1; @endphp
+                            @php
+                                $x = 1;
+                                $date_booked = date('z') + 1;
+                            @endphp
+
                             @foreach($holidaysPending as $hol)
                                 @php
                                     if ($hol->booked == 'Request sent') {
@@ -56,8 +60,10 @@
                                     <td class='lastcontact hide_divs'>{{ $hol->requested_date }}</td>
                                     <td class='booked hide_divs'>{{ $booked }}</td>
                                     <td>
-                                        <button @click="acceptHolidayRequest({{ $hol->holiday_id }})" title='Accept request'>Accept</button>
-                                        <button @click="declineHolidayRequest({{ $hol->holiday_id }})" title='Decline request'>Decline</button>
+                                        @if($hol->id >= $date_booked)
+                                            <button @click="acceptHolidayRequest({{ $hol->holiday_id }})" title='Accept request'>Accept</button>
+                                            <button @click="declineHolidayRequest({{ $hol->holiday_id }})" title='Decline request'>Decline</button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -100,7 +106,9 @@
                                     <td class='lastcontact hide_divs'>{{ $hol->requested_date }}</td>
                                     <td class='booked hide_divs'>{{ $booked }}</td>
                                     <td>
-                                        <button @click="declineHolidayRequest({{ $hol->holiday_id }})" title='Decline request'>Decline</button>
+                                        @if($hol->id >= $date_booked)
+                                            <button @click="declineHolidayRequest({{ $hol->holiday_id }})" title='Decline request'>Decline</button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -143,7 +151,9 @@
                                     <td class='lastcontact hide_divs'>{{ $hol->requested_date }}</td>
                                     <td class='booked hide_divs'>{{ $booked }}</td>
                                     <td>
-                                        <button @click="acceptHolidayRequest({{ $hol->holiday_id }})" title='Accept request'>Accept</button>
+                                        @if($hol->id >= $date_booked)
+                                            <button @click="acceptHolidayRequest({{ $hol->holiday_id }})" title='Accept request'>Accept</button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
