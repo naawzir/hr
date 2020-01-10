@@ -73,7 +73,7 @@
                             <div class="form-group row">
                                 <label for="job_title" class="col-md-4 col-form-label text-md-right">{{ __('Job Title') }}</label>
                                 <div class="col-md-6">
-                                    <input id="job_title" type="text" class="form-control @error('job_title') is-invalid @enderror" name="job_title" value="{{ old('job_title') }}" required autocomplete="job_title">
+                                    <input id="job_title" type="text" class="form-control @error('job_title') is-invalid @enderror" name="job_title" value="{{ old('job_title') }}" autocomplete="job_title">
                                     @error('job_title')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

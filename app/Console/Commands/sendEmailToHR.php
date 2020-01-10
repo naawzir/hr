@@ -6,6 +6,7 @@ use App\Holiday;
 use App\Mail\emailHRHolidayRequestsSubmitted;
 use Illuminate\Console\Command;
 use App\Traits\MakeTime;
+use Illuminate\Support\Facades\Mail;
 
 class sendEmailToHR extends Command
 {
@@ -46,11 +47,13 @@ class sendEmailToHR extends Command
         $time_start = microtime(true);
         $x = 0;
 
-        $holidays = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])->whereNull('stage')->get();
-        if ($holidays) {
-            $user = null;
-            $message = 'Holiday requests have been submitted.';
-            \Mail::to('humanres321@gmail.com')->send(new emailHRHolidayRequestsSubmitted($user, $message));
+        // get holiday requests added within the last 15 minutes
+        $holidays = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])
+            ->where('created_at', '<=', \Carbon\Carbon::now()->subMinutes(15)->toDateTimeString())
+            ->whereNull('stage')
+            ->get();
+        if (count($holidays) > 0) {
+            Mail::to('humanres321@gmail.com')->send(new emailHRHolidayRequestsSubmitted());
             $x++;
         }
 

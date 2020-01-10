@@ -12,18 +12,13 @@ class emailHRHolidayRequestsSubmitted extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $user;
-    protected $message;
-
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user, string $message)
+    public function __construct()
     {
-        $this->user = $user;
-        $this->message = $message;
     }
 
     /**
@@ -33,13 +28,13 @@ class emailHRHolidayRequestsSubmitted extends Mailable
      */
     public function build()
     {
-        $subject = $this->user->name ? 'Holidays submitted ('  . $this->user->name . ')' : 'Holidays submitted';
+        $message = 'Holiday request/s have been submitted.';
+        $subject = 'Holidays submitted';
         return $this->view('email.holiday-requests-submitted')
             ->from('humanres321@gmail.com')
             ->subject($subject)
             ->with([
-                'text' => $this->message,
-                'user'    => $this->user,
+                'text' => $message,
             ]);
     }
 }

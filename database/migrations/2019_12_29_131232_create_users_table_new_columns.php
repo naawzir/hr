@@ -20,7 +20,7 @@ class CreateUsersTableNewColumns extends Migration
             $table->string('title', 10)->nullable();
             $table->string('firstname', 30);
             $table->string('middlename', 30)->nullable();
-            $table->string('surname', 30);
+            $table->string('lastname', 30);
             $table->string('job_title', 30)->nullable();
             $table->datetime('dob')->nullable();
             $table->string('hours_per_week', 8)->nullable();
@@ -43,7 +43,7 @@ class CreateUsersTableNewColumns extends Migration
                 'title',
                 'firstname',
                 'middlename',
-                'surname',
+                'lastname',
                 'job_title',
                 'dob',
                 'hours_per_week',

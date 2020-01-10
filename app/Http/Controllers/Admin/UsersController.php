@@ -154,7 +154,7 @@ class UsersController extends Controller
         $user->gender = $request->gender;
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');
-            $name = time().'.'.$image->getClientOriginalExtension();
+            $name = time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/images');
             $image->move($destinationPath, $name);
             $user->photo = $name;

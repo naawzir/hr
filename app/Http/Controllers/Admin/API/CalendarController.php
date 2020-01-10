@@ -110,18 +110,18 @@ class CalendarController extends Controller
             $holiday->save();
         }
 
-        $userName = $user->name;
+        /*$userName = $user->name;
         $message = $userName . ' has submitted a holiday request for the following dates:';
         $message .= html_entity_decode("\n") . implode("\n", $fullDayRequestedDates) . html_entity_decode("\n");
-        $message .= html_entity_decode("\n") . implode("\n", $halfDayRequestedDates) . html_entity_decode("\n");
+        $message .= html_entity_decode("\n") . implode("\n", $halfDayRequestedDates) . html_entity_decode("\n");*/
         //$text = null;
         // let us send an email
-        if (app()->isLocal()) {
-            event(new sendEmailToHR($user, $message));
-        } else {
-            // we'll send one email every hour only if at least one holiday request has been made in the previous hour
+        //if (app()->isLocal()) {
+            //event(new sendEmailToHR($user, $message));
+        //} else {
+            // we'll send one email every fifteen minutes only if at least one holiday request has been made which needs managing
 
-        }
+        //}
         return response()->json([
             'success' => true
         ]);

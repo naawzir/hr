@@ -8,8 +8,6 @@ class Holiday extends Model
 {
     protected $primaryKey = 'holiday_id';
 
-    public $timestamps = false;
-
     /**
      * Get the user that "owns" the holiday.
      */
