@@ -7,6 +7,7 @@ use App\Mail\emailHRHolidayRequestsSubmitted;
 use Illuminate\Console\Command;
 use App\Traits\MakeTime;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class sendEmailToHR extends Command
 {
@@ -24,7 +25,7 @@ class sendEmailToHR extends Command
      *
      * @var string
      */
-    protected $description = 'Email HR if somebody has put in a holiday request';
+    protected $description = 'Email HR if somebody has put in a holiday request.';
 
     /**
      * Create a new command instance.
@@ -49,9 +50,10 @@ class sendEmailToHR extends Command
 
         // get holiday requests added within the last 15 minutes
         $holidays = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])
-            ->where('created_at', '<=', \Carbon\Carbon::now()->subMinutes(15)->toDateTimeString())
+            ->where('created_at', '>=', Carbon::now()->subMinutes(15)->toDateTimeString())
             ->whereNull('stage')
             ->get();
+
         if (count($holidays) > 0) {
             Mail::to('humanres321@gmail.com')->send(new emailHRHolidayRequestsSubmitted());
             $x++;

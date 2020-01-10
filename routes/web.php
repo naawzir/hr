@@ -29,6 +29,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
     Route::get('/requests', 'CalendarController@requests')->name('requests');
     Route::resource('/users', 'UsersController');
     Route::get('/users/{id}/restore', 'UsersController@restore');
-    Route::get('/calendar', 'CalendarController@index');
+    Route::get('/calendar', 'CalendarController@index')->name('calendar');
 });
 Auth::routes(['register' => false]);
