@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Webpatser\Uuid\Uuid;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -21,11 +20,11 @@ class User extends Authenticatable implements JWTSubject
     {
         parent::boot();
         static::creating(function ($user) {
-            $user->uuid = (string) Uuid::generate(4);
-            $user->name = $user->firstname . ' ' . $user->middlename . ' ' . $user->lastname;
+            $user->uuid = (string) \Uuid::generate(4);
+            $user->name = $user->title . ' ' . $user->firstname . ' ' . $user->surname;
         });
         static::updating(function ($user) {
-            $user->name = $user->firstname . ' ' . $user->middlename . ' ' . $user->lastname;
+            $user->name = $user->firstname . ' ' . $user->middlename . ' ' . $user->surname;
         });
     }
 
@@ -73,10 +72,15 @@ class User extends Authenticatable implements JWTSubject
      * @param  string  $value
      * @return void
      */
-    /*public function setNameAttribute($value)
+    public function setNameAttribute($value)
     {
         $this->attributes['name'] = $this->attributes['firstname'] . ' ' .$this->attributes['middlename'] . ' ' .$this->attributes['lastname'];
-    }*/
+    }
+
+    public function holidays()
+    {
+        return $this->hasMany('App\Holiday', 'user_id', 'id'); // users.id = holidays.user_id
+    }
 
     /**
     * Get the identifier that will be stored in the subject claim of the JWT.

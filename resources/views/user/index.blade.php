@@ -12,7 +12,7 @@
                 <div class="card">
                     <br />
                     <a class="col-md-2" href="/admin/users/create">
-                        <button class="btn btn-success col-md-12" value="Create">Create</button>
+                        <button class="btn btn-success col-md-12">Create user</button>
                     </a>
 
                     <br />

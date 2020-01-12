@@ -23,24 +23,41 @@ class CalendarController extends Controller
         //$this->middleware('api');
     }
 
+    /*private function getHolidayRequests()
+    {
+        date_default_timezone_set('Europe/London');
+        $date_booked = date('z') + 1;
+
+        return $holidays = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])
+            ->where('id', '>=', $date_booked)
+            ->get();
+    }*/
+
     public function getRequests(Request $request)
     {
-        $holidays = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])->get();
-        $holidaysPending = $holidays->filter(function ($value, $key) {
-            return is_null($value->stage);
-        });
-        $holidaysAccepted = $holidays->filter(function ($value, $key) {
-            return $value->stage == 'Accepted';
-        });
-        $holidaysDeclined = $holidays->filter(function ($value, $key) {
-            return $value->stage == 'Declined';
-        });
+        date_default_timezone_set('Europe/London');
+        $date_booked = date('z') + 1;
+
+        $holidaysPending = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])
+            ->where('id', '>=', $date_booked)
+            ->whereNull('stage')
+            ->get();
+
+        $holidaysAccepted = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])
+            ->where('id', '>=', $date_booked)
+            ->where('stage', 'Accepted')
+            ->get();
+
+        $holidaysDeclined = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])
+            ->where('id', '>=', $date_booked)
+            ->where('stage', 'Declined')
+            ->get();
 
         return response()->json([
-            'success' => true,
-            'holidaysPending' => $holidaysPending,
-            'holidaysAccepted'  => $holidaysAccepted,
-            'holidaysDeclined'  => $holidaysDeclined,
+            'success'          => true,
+            'holidaysPending'  => $holidaysPending,
+            'holidaysAccepted' => $holidaysAccepted,
+            'holidaysDeclined' => $holidaysDeclined,
         ]);
     }
 

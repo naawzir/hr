@@ -59,9 +59,10 @@ class CalendarController extends Controller
 
     public function requests(Request $request)
     {
-        //date_default_timezone_set('Europe/London');
-        //$date_booked = date('z') + 1;
-        $holidays = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])->get();
+        date_default_timezone_set('Europe/London');
+        $date_booked = date('z') + 1;
+
+        $holidays = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])->where('id', '>=', $date_booked)->get();
         $holidaysPending = $holidays->filter(function ($value, $key) {
             return is_null($value->stage);
         });

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Validator;
 use Webpatser\Uuid\Uuid;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -27,7 +28,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $usersActive = User::all();
+        $usersActive = User::where('id', '!=', Auth::user()->id)->get();
         $usersInactive = User::onlyTrashed()->get();
         $data = [
             'usersActive'   => $usersActive,
@@ -112,8 +113,10 @@ class UsersController extends Controller
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(User $user)
+    public function edit($id)
     {
+        $model = new User;
+        $user = findByUuid($model, $id);
         $data = [
             'user' => $user
         ];
@@ -127,8 +130,10 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
+        $model = new User;
+        $user = findByUuid($model, $id);
         $validator = Validator::make($request->all(), [
             'firstname' => 'required',
             'lastname'  => 'required',
@@ -137,10 +142,28 @@ class UsersController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('/admin/users/'. $user->id . '/edit')
+            return redirect('/admin/users/'. $user->uuid . '/edit')
                 ->withErrors($validator)
                 ->withInput();
         }
+
+        date_default_timezone_set('Europe/London');
+        $date_booked = date('z') + 1;
+        $userHolidaysCount = $user->holidays()
+            ->where(function($q) {
+                $q->where('stage', 'Accepted')
+                    ->orWhereNull('stage');
+            })
+            //->where('id', '>=', $date_booked)
+            ->count();
+
+        // need to check how many holidays this user has already requested
+        if ($request->holiday_entitlement < $userHolidaysCount) {
+            return redirect('/admin/users/'. $user->uuid . '/edit')
+                ->withErrors('Holiday entitlement must be greater than the number of holidays already requested and accepted.')
+                ->withInput();
+        }
+
         //$user->name = 'this value will be set by the mutator in the user model';
         $user->title = ucfirst($request->title);
         $user->email = $request->email;
@@ -150,11 +173,11 @@ class UsersController extends Controller
         $user->job_title = $request->job_title;
         $user->dob = $request->dob;
         $user->hours_per_week = $request->hours_per_week;
-        $user->holiday_entitlement= $request->holiday_entitlement;
+        $user->holiday_entitlement = $request->holiday_entitlement;
         $user->gender = $request->gender;
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');
-            $name = time() . '.' . $image->getClientOriginalExtension();
+            $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/images');
             $image->move($destinationPath, $name);
             $user->photo = $name;
@@ -173,13 +196,37 @@ class UsersController extends Controller
     {
         $userUuid = $user->uuid;
         $user->delete();
-        return redirect('/admin/users/'. $userUuid);
+        return redirect('/admin/users/'. $userUuid)->withMessage('The user has been made inactive!');
     }
 
     public function restore($id)
     {
         $user = findByUuid(new User, $id);
         $user->restore();
-        return redirect('/admin/users/'. $user->uuid);
+        return redirect('/admin/users/'. $user->uuid)->withMessage('The user has been made active again!');
+    }
+
+    public function editPassword(User $user)
+    {
+        $data = [
+            'user' => $user
+        ];
+        return view('user.update-password', $data);
+    }
+
+    public function storePassword(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|confirmed|min:8',
+        ]);
+        if ($validator->fails()) {
+            return redirect('/admin/users/'. $user->uuid . '/update-password')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return redirect('/admin/users/'. $user->uuid . '/update-password')
+            ->withMessage('Your password has been successfully updated');
     }
 }

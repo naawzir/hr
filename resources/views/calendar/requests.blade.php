@@ -13,6 +13,7 @@
         <div style="margin:0 auto;">
             <div id="content_title">
                 <h1>Requests</h1>
+                <p> @{{ acceptedRequests }}</p>
             </div><!--end of content_title-->
 
                 <div id="tabs">
@@ -52,7 +53,7 @@
                                 @endphp
                                 <tr>
                                     <td class='checkbox-custom checkbox-primary mb5'>
-                                        <input type='checkbox' class='undecidedCheckbox' v-model="pending" value='{{ $hol->holiday_id }}' />
+                                        <input type='checkbox' v-model="pending" value='{{ $hol->holiday_id }}' />
                                     </td>
                                     <td class='no'>{{ $x++ }}</td>
                                     <td class='name'>{{ $hol->user->name }}</td>
@@ -98,7 +99,7 @@
                                 @endphp
                                 <tr>
                                     <td class='checkbox-custom checkbox-primary mb5'>
-                                        <input type='checkbox' class='acceptedCheckbox' v-model="accepted" value='{{ $hol->holiday_id }}' />
+                                        <input type='checkbox' v-model="accepted" value='{{ $hol->holiday_id }}' />
                                     </td>
                                     <td class='no'>{{ $x++ }}</td>
                                     <td class='name'>{{ $hol->user->name }}</td>
@@ -143,7 +144,7 @@
                                 @endphp
                                 <tr>
                                     <td class='checkbox-custom checkbox-primary mb5'>
-                                        <input type='checkbox' class='declinedCheckbox' v-model="declined" value='{{ $hol->holiday_id }}' />
+                                        <input type='checkbox' v-model="declined" value='{{ $hol->holiday_id }}' />
                                     </td>
                                     <td class='no'>{{ $x++ }}</td>
                                     <td class='name'>{{ $hol->user->name }}</td>
