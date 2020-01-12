@@ -9,13 +9,13 @@ const users = new Vue({
     },
     mounted() {
         let self = this;
-        self.getUsers();
+        //self.getUsers();
     },
     computed: {
 
     },
     methods: {
-        getUsers: function () {
+       /* getUsers: function () {
             let self = this;
             axios({
                 url: api + 'users',
@@ -23,6 +23,6 @@ const users = new Vue({
             }).then(function (response) {
                 self.users = response.data.data;
             });
-        }
+        }*/
     }
 });

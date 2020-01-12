@@ -9,12 +9,12 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Scripts -->
+    {{--script src="{{ asset('js/app.js') }}"></script>--}}
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -23,7 +23,7 @@
     @stack('afterStyles')
 </head>
 <body>
-    <div>
+    <div id="appp">
         <nav id="navbar" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -56,13 +56,19 @@
                                 <a class="mr-1" href="/admin/users">Users</a>|
                                 <a class="mr-1" href="/admin/calendar">My Calendar</a>|
                                 <li class="nav-item dropdown ml-1 mr-1">
+                                    <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Manage Requests<span class="caret"></span></a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/admin/requests">Requests (Table)</a>
+                                        <a class="dropdown-item" href="/admin/requests-calendar">Requests (Calendar)</a>
+                                    </div>
+                                </li>|
+                                <li class="nav-item dropdown ml-1 mr-1">
                                     <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Manage Account<span class="caret"></span></a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="/admin/users/{{ \Auth::user()->uuid }}/edit">My Profile</a>
                                         <a class="dropdown-item" href="/admin/users/{{ \Auth::user()->uuid }}/update-password">Change Password</a>
                                     </div>
                                 </li>|
-                                <a class="ml-1 mr-1" href="/admin/requests">Holiday Requests</a>|
                                 <a class="ml-1 mr-1" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -84,8 +90,10 @@
             @yield('content')
         </main>
     </div>
+
     @stack('beforeScripts')
     @yield('scripts')
     @stack('afterScripts')
+
 </body>
 </html>

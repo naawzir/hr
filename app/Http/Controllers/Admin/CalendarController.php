@@ -62,7 +62,9 @@ class CalendarController extends Controller
         date_default_timezone_set('Europe/London');
         $date_booked = date('z') + 1;
 
-        $holidays = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])->where('id', '>=', $date_booked)->get();
+        $holidays = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])
+            //->where('id', '>=', $date_booked)
+            ->get();
         $holidaysPending = $holidays->filter(function ($value, $key) {
             return is_null($value->stage);
         });
@@ -78,6 +80,50 @@ class CalendarController extends Controller
             'holidaysDeclined' => $holidaysDeclined,
         ];
         return view('calendar.requests', $data);
+    }
+
+    public function requestsCalendar(Request $request)
+    {
+        $days = $this->calendar->with('holidaysForUsers')->get();
+        $months = [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ];
+
+        date_default_timezone_set('Europe/London');
+        $date_booked = date('z') + 1;
+
+        $holidays = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])
+            //->where('id', '>=', $date_booked)
+            ->get();
+
+        $holidaysPending = $holidays->filter(function ($value, $key) {
+            return is_null($value->stage);
+        });
+        $holidaysAccepted = $holidays->filter(function ($value, $key) {
+            return $value->stage == 'Accepted';
+        });
+        $holidaysDeclined = $holidays->filter(function ($value, $key) {
+            return $value->stage == 'Declined';
+        });
+        $data = [
+            'holidaysPending'  => $holidaysPending,
+            'holidaysAccepted' => $holidaysAccepted,
+            'holidaysDeclined' => $holidaysDeclined,
+            'days'     => $days,
+            'months'   => $months,
+        ];
+        return view('calendar.requests-calendar', $data);
     }
 
     /**

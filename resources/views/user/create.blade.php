@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<div id="users">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -118,6 +119,16 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="book_past_holidays" class="col-md-4 col-form-label text-md-right">{{ __('Book holidays in the past') }}</label>
+                                <div class="col-md-6">
+                                    <select id="book_past_holidays" name="book_past_holidays">
+                                        <option @if(old('book_past_holidays') === 0) selected @endif value="{{ old('book_past_holidays', '0') }}">No</option>
+                                        <option @if(old('book_past_holidays') === 1) selected @endif value="{{ old('book_past_holidays', '1') }}">Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="hours_per_week" class="col-md-4 col-form-label text-md-right">{{ __('Hours per week') }}</label>
                                 <div class="col-md-6">
                                     <input id="hours_per_week" type="text" class="form-control @error('hours_per_week') is-invalid @enderror" name="hours_per_week" value="{{ old('hours_per_week') }}" autocomplete="hours_per_week">
@@ -149,4 +160,9 @@
             </div>
         </div>
     </div>
+</div>
 @endsection
+@section('scripts')
+    <script src="{{ asset('js/users.js') }}"></script>
+@endsection
+

@@ -97,25 +97,33 @@
                                                     <span class="declined" id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
                                                 @endif
                                             @elseif ($day->holidaysForUser[0]->booked == 'Request' && $day->holidaysForUser[0]->stage == '')
-                                                @if ($day->id <= $date_booked)
+                                                @if (\Auth::user()->book_past_holidays === 1)
+                                                    <span id='{{ $day->id }}' class='request'><label>{{ $day->day }}</label></span>
+                                                @elseif ($day->id <= $date_booked)
                                                     <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
                                                 @else
                                                     <span class='request' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
                                                 @endif
                                             @elseif ($day->holidaysForUser[0]->booked == 'Half Request' && $day->holidaysForUser[0]->stage == '')
-                                                @if ($day->id <= $date_booked)
+                                                @if (\Auth::user()->book_past_holidays === 1)
+                                                    <span id='{{ $day->id }}' class='halfrequest'><label>{{ $day->day }}</label></span>
+                                                @elseif ($day->id <= $date_booked)
                                                     <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
                                                 @else
                                                     <span class='halfrequest' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
                                                 @endif
                                             @elseif ($day->holidaysForUser[0]->booked == 'Request sent' && $day->holidaysForUser[0]->stage == '')
-                                                @if ($day->id <= $date_booked)
+                                                @if (\Auth::user()->book_past_holidays === 1)
+                                                    <span id='{{ $day->id }}' class='request_sent'><label>{{ $day->day }}</label></span>
+                                                @elseif ($day->id <= $date_booked)
                                                     <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
                                                 @else
                                                     <span class='request_sent' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
                                                 @endif
                                             @elseif ($day->holidaysForUser[0]->booked == 'Half Request sent' && $day->holidaysForUser[0]->stage == '')
-                                                @if ($day->id <= $date_booked)
+                                                @if (\Auth::user()->book_past_holidays === 1)
+                                                    <span id='{{ $day->id }}' class='halfrequest_sent'><label>{{ $day->day }}</label></span>
+                                                @elseif ($day->id <= $date_booked)
                                                     <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
                                                 @else
                                                     <span class='halfrequest_sent' id='{{ $day->id }}'><label>{{ $day->day }}</label></span>
@@ -124,6 +132,8 @@
                                                 <span id='{{ $day->id }}' class='bank_holiday'><label>{{ $day->day }}</label></span>
                                             @elseif ($day->bank_holiday == 'Unavailable')
                                                 echo("<span id='{{ $day->id }}' class='unavailable'><label>{{ $day->day }}</label></span>");
+                                            @elseif (\Auth::user()->book_past_holidays === 1)
+                                                <span id='{{ $day->id }}' class='weekday'><label>{{ $day->day }}</label></span>
                                             @elseif ($day->id <= $date_booked)
                                                 <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
                                             @else
@@ -134,6 +144,8 @@
                                                 <span id='{{ $day->id }}' class='bank_holiday'><label>{{ $day->day }}</label></span>
                                             @elseif ($day->bank_holiday == 'Unavailable')
                                                 <span id='{{ $day->id }}' class='unavailable'><label>{{ $day->day }}</label></span>
+                                            @elseif (\Auth::user()->book_past_holidays === 1)
+                                                <span id='{{ $day->id }}' class='weekday'><label>{{ $day->day }}</label></span>
                                             @elseif ($day->id <= $date_booked)
                                                 <span id='{{ $day->id }}' class='pastday'><label>{{ $day->day }}</label></span>
                                             @else

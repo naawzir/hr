@@ -78,7 +78,8 @@ class UsersController extends Controller
         $user->job_title = $request->job_title;
         $user->dob = $request->dob;
         $user->hours_per_week = $request->hours_per_week;
-        $user->holiday_entitlement= $request->holiday_entitlement;
+        $user->holiday_entitlement = $request->holiday_entitlement;
+        $user->book_past_holidays = $request->book_past_holidays;
         $user->gender = $request->gender;
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');
@@ -174,6 +175,7 @@ class UsersController extends Controller
         $user->dob = $request->dob;
         $user->hours_per_week = $request->hours_per_week;
         $user->holiday_entitlement = $request->holiday_entitlement;
+        $user->book_past_holidays = $request->book_past_holidays;
         $user->gender = $request->gender;
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');

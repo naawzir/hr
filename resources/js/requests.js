@@ -22,9 +22,11 @@ const requests = new Vue({
         pendingRequests : false,
         acceptedRequests : false,
         declinedRequests : false,
+        weekendAvailability : ''
     },
     mounted() {
         this.getRequests();
+        this.checkWeekendAvailability();
     },
     computed: {
     },
@@ -72,6 +74,25 @@ const requests = new Vue({
         },
     },
     methods: {
+        toggleWeekendAvailability : function () {
+            let self = this;
+            axios({
+                url: api + 'toggle-weekend-availability',
+                method: 'POST',
+                data: {
+                    weekend_availability : self.weekendAvailability
+                }
+            }).then(function (response) {
+                console.log('fine', response);
+                if (response.data.error) {
+                    return false;
+                }
+                alert('Updated!');
+            }).catch(function (err) {
+                console.log('fail');
+                console.log(err);
+            });
+        },
         showTable : function () {
             let self = this;
             self.acceptButton = false;
@@ -211,6 +232,25 @@ const requests = new Vue({
                 });
             }
         },
+        deleteDeclinedHolidayRequest: function (holidayId) {
+            let self = this;
+            axios({
+                url: api + 'delete-declined-holiday-request',
+                method: 'POST',
+                data: {
+                    holiday_id : holidayId
+                }
+            }).then(function (response) {
+                console.log('fine', response);
+                if (response.data.error) {
+                    return false;
+                }
+                location.reload();
+            }).catch(function (err) {
+                console.log('fail');
+                console.log(err);
+            });
+        },
         acceptHolidayRequests: function () {
             let self = this;
             let holidayIds = self.pending.concat(self.declined);
@@ -231,7 +271,7 @@ const requests = new Vue({
                 console.log(err);
             });
         },
-        declineHolidayRequests: function () {
+        declineHolidayRequests : function () {
             let self = this;
             let message = confirm("Are you sure you want to decline the holiday/s?");
             if (!message) {
@@ -255,6 +295,23 @@ const requests = new Vue({
                     console.log(err);
                 });
             }
+        },
+        checkWeekendAvailability : function () {
+            let self = this;
+            axios({
+                url: api + 'check-weekend-availablity',
+                method: 'GET'
+            }).then(function (response) {
+                console.log('fine');
+                if (response.data.error) {
+                    return false;
+                }
+                console.log('a', response.data.checkWeekendAvailability);
+                self.weekendAvailability = response.data.checkWeekendAvailability;
+            }).catch(function (err) {
+                console.log('fail');
+                console.log(err);
+            });
         }
     }
 });

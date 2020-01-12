@@ -8,6 +8,8 @@ class Calendar extends Model
 {
     protected $table = 'calendar2020';
 
+    public $timestamps = false;
+
     /**
      * The relationships that should always be loaded.
      *
@@ -22,11 +24,17 @@ class Calendar extends Model
     {
         return $this->hasMany('App\Holiday', 'id', 'id'); // calendar2020.date = holidays.id
     }
+
     /**
      * Get the holidays for the calendar day.
      */
     public function holidaysForUser()
     {
         return $this->hasMany('App\Holiday', 'id', 'id')->where('holidays.user_id', \Auth::user()->id); // calendar2020.date = holidays.id
+    }
+
+    public function holidaysForUsers()
+    {
+        return $this->hasMany('App\Holiday', 'id', 'id'); // calendar2020.date = holidays.id
     }
 }

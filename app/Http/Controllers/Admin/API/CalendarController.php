@@ -6,6 +6,7 @@ use App\Events\sendEmailToHR;
 use App\Events\sendEmailToEmployee;
 use App\Http\Controllers\Controller;
 use App\Calendar;
+use http\Exception\RuntimeException;
 use Illuminate\Http\Request;
 use App\User;
 use App\Holiday;
@@ -39,25 +40,55 @@ class CalendarController extends Controller
         $date_booked = date('z') + 1;
 
         $holidaysPending = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])
-            ->where('id', '>=', $date_booked)
+            //->where('id', '>=', $date_booked)
             ->whereNull('stage')
             ->get();
 
         $holidaysAccepted = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])
-            ->where('id', '>=', $date_booked)
+            //->where('id', '>=', $date_booked)
             ->where('stage', 'Accepted')
             ->get();
 
         $holidaysDeclined = Holiday::whereIn('booked', ['Request sent', 'Half Request sent'])
-            ->where('id', '>=', $date_booked)
+            //->where('id', '>=', $date_booked)
             ->where('stage', 'Declined')
             ->get();
 
         return response()->json([
-            'success'          => true,
-            'holidaysPending'  => $holidaysPending,
-            'holidaysAccepted' => $holidaysAccepted,
-            'holidaysDeclined' => $holidaysDeclined,
+            'success'           => true,
+            'holidaysPending'   => $holidaysPending,
+            'holidaysAccepted'  => $holidaysAccepted,
+            'holidaysDeclined'  => $holidaysDeclined,
+        ]);
+    }
+
+    public function checkWeekendAvailablity()
+    {
+        $checkWeekendAvailability = 0;
+        $getFirstSat = Calendar::where('day', 'Sat')->whereNull('bank_holiday')->first();
+        if ($getFirstSat) {
+            $checkWeekendAvailability = 1;
+        }
+        return response()->json([
+            'success'                  => true,
+            'checkWeekendAvailability' => $checkWeekendAvailability,
+        ]);
+    }
+
+    public function toggleWeekendAvailability(Request $request)
+    {
+        $weekendAvailability = $request->weekend_availability;
+        $weekends = Calendar::whereIn('day', ['Sat', 'Sun'])
+            //->where('bank_holiday', '!=', 'Y')
+            ->get();
+
+        $weekendAvailability = empty($weekendAvailability) ? 'Unavailable' : null;
+        foreach ($weekends as $weekend) {
+            $weekend->bank_holiday = $weekendAvailability;
+            $weekend->save();
+        }
+        return response()->json([
+            'success' => true,
         ]);
     }
 
@@ -192,6 +223,16 @@ class CalendarController extends Controller
         // let us send an email
         //event(new sendEmailToEmployee($user, $text));
 
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    public function deleteDeclinedHolidayRequest(Request $request)
+    {
+        //"DELETE FROM holidays WHERE holiday_id = '$id'"
+        $holiday = Holiday::findOrFail($request->holiday_id);
+        $holiday->delete();
         return response()->json([
             'success' => true
         ]);

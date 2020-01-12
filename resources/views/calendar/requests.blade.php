@@ -13,7 +13,6 @@
         <div style="margin:0 auto;">
             <div id="content_title">
                 <h1>Requests</h1>
-                <p> @{{ acceptedRequests }}</p>
             </div><!--end of content_title-->
 
                 <div id="tabs">
@@ -29,11 +28,11 @@
                                     <th style='width: 5%; position: relative;'>
                                         <input type='checkbox' v-if="pendingRequests" v-model="allPending" @click="selectAllPending()" />
                                     </th>
-                                    <th class='no'>No</th>
-                                    <th class='name'>Name</th>
-                                    <th class='job_title'>Date Sent</th>
-                                    <th class='department'>Holiday Date</th>
-                                    <th class='booked'>Full/Half Day</th>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Date Sent</th>
+                                    <th>Holiday Date</th>
+                                    <th>Full/Half Day</th>
                                     <th>Accept / Decline</th>
                                 </tr>
                             </thead>
@@ -44,6 +43,7 @@
                             @endphp
 
                             @foreach($holidaysPending as $hol)
+{{--                                {{ $hol->user->book_past_holidays }}--}}
                                 @php
                                     if ($hol->booked == 'Request sent') {
                                         $booked = 'Full day';
@@ -52,16 +52,16 @@
                                     }
                                 @endphp
                                 <tr>
-                                    <td class='checkbox-custom checkbox-primary mb5'>
+                                    <td>
                                         <input type='checkbox' v-model="pending" value='{{ $hol->holiday_id }}' />
                                     </td>
-                                    <td class='no'>{{ $x++ }}</td>
-                                    <td class='name'>{{ $hol->user->name }}</td>
-                                    <td class='Job Title hide_divs'>{{ $hol->request_date }}</td>
-                                    <td class='lastcontact hide_divs'>{{ $hol->requested_date }}</td>
-                                    <td class='booked hide_divs'>{{ $booked }}</td>
+                                    <td>{{ $x++ }}</td>
+                                    <td>{{ $hol->user->name }}</td>
+                                    <td>{{ $hol->request_date }}</td>
+                                    <td>{{ $hol->requested_date }}</td>
+                                    <td>{{ $booked }}</td>
                                     <td>
-                                        @if($hol->id >= $date_booked)
+                                        @if ($hol->id >= $date_booked || $hol->user->book_past_holidays === 1)
                                             <button @click="acceptHolidayRequest({{ $hol->holiday_id }})" title='Accept request'>Accept</button>
                                             <button @click="declineHolidayRequest({{ $hol->holiday_id }})" title='Decline request'>Decline</button>
                                         @endif
@@ -79,12 +79,12 @@
                                     <th style='width: 5%; position: relative;'>
                                         <input type='checkbox' v-if="acceptedRequests" id='selectAllAccepted' v-model="allAccepted" @click="selectAllAccepted()" />
                                     </th>
-                                    <th class='no'>No</th>
-                                    <th class='name'>Name</th>
-                                    <th class='job_title'>Date Sent</th>
-                                    <th class='department'>Holiday Date</th>
-                                    <th class='booked'>Full/Half Day</th>
-                                    <th class='decline'>Decline</th>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Date Sent</th>
+                                    <th>Holiday Date</th>
+                                    <th>Full/Half Day</th>
+                                    <th>Decline</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -98,16 +98,16 @@
                                     }
                                 @endphp
                                 <tr>
-                                    <td class='checkbox-custom checkbox-primary mb5'>
+                                    <td>
                                         <input type='checkbox' v-model="accepted" value='{{ $hol->holiday_id }}' />
                                     </td>
-                                    <td class='no'>{{ $x++ }}</td>
-                                    <td class='name'>{{ $hol->user->name }}</td>
-                                    <td class='Job Title hide_divs'>{{ $hol->request_date }}</td>
-                                    <td class='lastcontact hide_divs'>{{ $hol->requested_date }}</td>
-                                    <td class='booked hide_divs'>{{ $booked }}</td>
+                                    <td>{{ $x++ }}</td>
+                                    <td>{{ $hol->user->name }}</td>
+                                    <td>{{ $hol->request_date }}</td>
+                                    <td>{{ $hol->requested_date }}</td>
+                                    <td>{{ $booked }}</td>
                                     <td>
-                                        @if($hol->id >= $date_booked)
+                                        @if ($hol->id >= $date_booked || $hol->user->book_past_holidays === 1)
                                             <button @click="declineHolidayRequest({{ $hol->holiday_id }})" title='Decline request'>Decline</button>
                                         @endif
                                     </td>
@@ -124,12 +124,13 @@
                                     <th style='width: 5%; position: relative;'>
                                         <input type='checkbox' v-if="declinedRequests" v-model="allDeclined" @click="selectAllDeclined()"  />
                                     </th>
-                                    <th class='no'>No</th>
-                                    <th class='name'>Name</th>
-                                    <th class='job_title'>Date Sent</th>
-                                    <th class='department'>Holiday Date</th>
-                                    <th class='booked'>Full/Half Day</th>
-                                    <th class='decline'>Decline</th>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Date Sent</th>
+                                    <th>Holiday Date</th>
+                                    <th>Full/Half Day</th>
+                                    <th>Decline</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -143,18 +144,21 @@
                                     }
                                 @endphp
                                 <tr>
-                                    <td class='checkbox-custom checkbox-primary mb5'>
+                                    <td>
                                         <input type='checkbox' v-model="declined" value='{{ $hol->holiday_id }}' />
                                     </td>
-                                    <td class='no'>{{ $x++ }}</td>
-                                    <td class='name'>{{ $hol->user->name }}</td>
-                                    <td class='Job Title hide_divs'>{{ $hol->request_date }}</td>
-                                    <td class='lastcontact hide_divs'>{{ $hol->requested_date }}</td>
-                                    <td class='booked hide_divs'>{{ $booked }}</td>
+                                    <td>{{ $x++ }}</td>
+                                    <td>{{ $hol->user->name }}</td>
+                                    <td>{{ $hol->request_date }}</td>
+                                    <td>{{ $hol->requested_date }}</td>
+                                    <td>{{ $booked }}</td>
                                     <td>
-                                        @if($hol->id >= $date_booked)
+                                        @if ($hol->id >= $date_booked || $hol->user->book_past_holidays === 1)
                                             <button @click="acceptHolidayRequest({{ $hol->holiday_id }})" title='Accept request'>Accept</button>
                                         @endif
+                                    </td>
+                                    <td>
+                                        <button @click="deleteDeclinedHolidayRequest({{ $hol->holiday_id }})" title='Delete declined holiday request'>Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -165,6 +169,10 @@
                 <br>
                 <button v-if="acceptButton" class="request_button" @click="acceptHolidayRequests()">Accept</button>
                 <button v-if="declineButton" class="request_button" @click="declineHolidayRequests()">Decline</button>
+                <select v-model="weekendAvailability" @change="toggleWeekendAvailability()">
+                    <option value="1">Weekends are available</option>
+                    <option value="0">Weekends are not available</option>
+                </select>
             <div class='clear'></div>
         </div><!--end of content-->
     </div><!--end of content_wrapper-->
@@ -175,9 +183,7 @@
 @section('scripts')
 <!--JavaScript-->
 <script src="/js/requests.js"></script>
-{{--<script src="/js/jquery.min.js"></script>--}}
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-{{--<script src="/js/axios.min.js"></script>--}}
 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 <script>

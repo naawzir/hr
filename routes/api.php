@@ -30,5 +30,8 @@ Route::group(['namespace' => 'Admin\API', 'prefix' => 'v1','middleware' => []], 
     Route::post('decline-holiday-requests', 'CalendarController@declineHolidayRequests');
     Route::post('/accept-holiday-request', 'CalendarController@acceptHolidayRequest');
     Route::post('/decline-holiday-request', 'CalendarController@declineHolidayRequest');
+    Route::post('/delete-declined-holiday-request', 'CalendarController@deleteDeclinedHolidayRequest');
     Route::get('/get-requests', 'CalendarController@getRequests');
+    Route::get('/check-weekend-availablity', 'CalendarController@checkWeekendAvailablity');
+    Route::post('/toggle-weekend-availability', 'CalendarController@toggleWeekendAvailability');
 });

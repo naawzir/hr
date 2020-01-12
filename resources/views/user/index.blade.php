@@ -65,10 +65,6 @@
                             </table>
                         </div>
                     </div>
-
-                   {{-- @foreach($users as $user)
-                        <p>{{ $user->name }} @if($user->trashed()) (Inactive) @endif | </p>
-                    @endforeach--}}
                 </div>
             </div>
         </div>
@@ -77,14 +73,13 @@
 @endsection
 
 @section('scripts')
-    {{--<script src="{{ asset('js/users.js') }}"></script>--}}
+    <script src="{{ asset('js/users.js') }}"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     <script src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#tabs").tabs();
-            //$("#users").addClass("active");
             $('.myTable').dataTable();
         });
     </script>
