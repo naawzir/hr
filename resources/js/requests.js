@@ -22,7 +22,8 @@ const requests = new Vue({
         pendingRequests : false,
         acceptedRequests : false,
         declinedRequests : false,
-        weekendAvailability : ''
+        weekendAvailability : '',
+        deleteDeclinedRequestsBtn : false
     },
     mounted() {
         this.getRequests();
@@ -74,6 +75,27 @@ const requests = new Vue({
         },
     },
     methods: {
+        deleteDeclinedRequests : function () {
+            let self = this;
+            let message = confirm("Are you sure you want to delete all declined holiday requests?");
+            if (!message) {
+                return;
+            } else {
+                axios({
+                    url: api + 'delete-declined-requests',
+                    method: 'GET'
+                }).then(function (response) {
+                    console.log('fine', response);
+                    if (response.data.error) {
+                        return false;
+                    }
+                    location.reload();
+                }).catch(function (err) {
+                    console.log('fail');
+                    console.log(err);
+                });
+            }
+        },
         toggleWeekendAvailability : function () {
             let self = this;
             axios({
@@ -93,8 +115,13 @@ const requests = new Vue({
                 console.log(err);
             });
         },
-        showTable : function () {
+        showTable : function (table = null) {
             let self = this;
+            if (table && table === 'declined' && self.holidaysDeclinedCount > 0) {
+                self.deleteDeclinedRequestsBtn = true;
+            } else {
+                self.deleteDeclinedRequestsBtn = false;
+            }
             self.acceptButton = false;
             self.declineButton = false;
             self.allPending = false;
@@ -234,22 +261,27 @@ const requests = new Vue({
         },
         deleteDeclinedHolidayRequest: function (holidayId) {
             let self = this;
-            axios({
-                url: api + 'delete-declined-holiday-request',
-                method: 'POST',
-                data: {
-                    holiday_id : holidayId
-                }
-            }).then(function (response) {
-                console.log('fine', response);
-                if (response.data.error) {
-                    return false;
-                }
-                location.reload();
-            }).catch(function (err) {
-                console.log('fail');
-                console.log(err);
-            });
+            let message = confirm("Are you sure you want to delete this declined holiday request?");
+            if (!message) {
+                return;
+            } else {
+                axios({
+                    url: api + 'delete-declined-holiday-request',
+                    method: 'POST',
+                    data: {
+                        holiday_id: holidayId
+                    }
+                }).then(function (response) {
+                    console.log('fine', response);
+                    if (response.data.error) {
+                        return false;
+                    }
+                    location.reload();
+                }).catch(function (err) {
+                    console.log('fail');
+                    console.log(err);
+                });
+            }
         },
         acceptHolidayRequests: function () {
             let self = this;

@@ -19,7 +19,7 @@
                     <ul class='tabs'>
                         <li><a href='#tabs-1' @click="showTable()">Requests pending (sent) ({{ $holidaysPending->count() }}</a></li>
                         <li><a href='#tabs-2' @click="showTable()">Requests accepted ({{ $holidaysAccepted->count() }})</a></li>
-                        <li><a href='#tabs-3' @click="showTable()">Requests declined ({{ $holidaysDeclined->count() }})</a></li>
+                        <li><a href='#tabs-3' @click="showTable('declined')">Requests declined ({{ $holidaysDeclined->count() }})</a></li>
                     </ul>
                     <div id='tabs-1'><!-- pending -->
                         <table class='myTable tablesorter'>
@@ -62,8 +62,8 @@
                                     <td>{{ $booked }}</td>
                                     <td>
                                         @if ($hol->id >= $date_booked || $hol->user->book_past_holidays === 1)
-                                            <button @click="acceptHolidayRequest({{ $hol->holiday_id }})" title='Accept request'>Accept</button>
-                                            <button @click="declineHolidayRequest({{ $hol->holiday_id }})" title='Decline request'>Decline</button>
+                                            <button class="btn btn-success" @click="acceptHolidayRequest({{ $hol->holiday_id }})" title='Accept request'>Accept</button>
+                                            <button class="btn btn-danger" @click="declineHolidayRequest({{ $hol->holiday_id }})" title='Decline request'>Decline</button>
                                         @endif
                                     </td>
                                 </tr>
@@ -108,7 +108,7 @@
                                     <td>{{ $booked }}</td>
                                     <td>
                                         @if ($hol->id >= $date_booked || $hol->user->book_past_holidays === 1)
-                                            <button @click="declineHolidayRequest({{ $hol->holiday_id }})" title='Decline request'>Decline</button>
+                                            <button class="btn btn-danger" @click="declineHolidayRequest({{ $hol->holiday_id }})" title='Decline request'>Decline</button>
                                         @endif
                                     </td>
                                 </tr>
@@ -154,11 +154,11 @@
                                     <td>{{ $booked }}</td>
                                     <td>
                                         @if ($hol->id >= $date_booked || $hol->user->book_past_holidays === 1)
-                                            <button @click="acceptHolidayRequest({{ $hol->holiday_id }})" title='Accept request'>Accept</button>
+                                            <button class="btn btn-success" @click="acceptHolidayRequest({{ $hol->holiday_id }})" title='Accept request'>Accept</button>
                                         @endif
                                     </td>
                                     <td>
-                                        <button @click="deleteDeclinedHolidayRequest({{ $hol->holiday_id }})" title='Delete declined holiday request'>Delete</button>
+                                        <button class="btn btn-dark" @click="deleteDeclinedHolidayRequest({{ $hol->holiday_id }})" title='Delete declined holiday request'>Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -168,13 +168,14 @@
                 </div>
                 <br>
                 <select v-model="weekendAvailability" @change="toggleWeekendAvailability()">
-                    <option value="1">Weekends are available</option>
-                    <option value="0">Weekends are not available</option>
+                    <option value="1">Weekends available</option>
+                    <option value="0">Weekends not available</option>
                 </select>
                 <br>
                 <br>
-                <button v-if="acceptButton" class="request_button" @click="acceptHolidayRequests()">Accept</button>
-                <button v-if="declineButton" class="request_button" @click="declineHolidayRequests()">Decline</button>
+                <button v-if="acceptButton" class="btn btn-primary" @click="acceptHolidayRequests()">Accept</button>
+                <button v-if="declineButton" class="btn btn-primary" @click="declineHolidayRequests()">Decline</button>
+                <button v-if="deleteDeclinedRequestsBtn" class="btn btn-dark" @click="deleteDeclinedRequests()">Delete declined</button>
             <div class='clear'></div>
         </div><!--end of content-->
     </div><!--end of content_wrapper-->

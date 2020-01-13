@@ -10,11 +10,12 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <br />
-                    <a class="col-md-2" href="/admin/users/create">
-                        <button class="btn btn-success col-md-12">Create user</button>
-                    </a>
-
+                    @can('create', new \App\User)
+                        <br />
+                        <a class="col-md-2" href="/admin/users/create">
+                            <button class="btn btn-success col-md-12">Create user</button>
+                        </a>
+                    @endcan
                     <br />
                     <div id="tabs">
                         <ul class='tabs'>

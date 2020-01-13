@@ -34,4 +34,5 @@ Route::group(['namespace' => 'Admin\API', 'prefix' => 'v1','middleware' => []], 
     Route::get('/get-requests', 'CalendarController@getRequests');
     Route::get('/check-weekend-availablity', 'CalendarController@checkWeekendAvailablity');
     Route::post('/toggle-weekend-availability', 'CalendarController@toggleWeekendAvailability');
+    Route::get('/delete-declined-requests', 'CalendarController@deleteDeclinedRequests');
 });
