@@ -36,9 +36,7 @@ time, mark, audio, video {
 
 #content
 {
-    position : absolute !important;
     top : -100px !important;
-    left : 100px;
 }
 
 #calendar

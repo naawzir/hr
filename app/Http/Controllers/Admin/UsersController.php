@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Support\Facades\Validator;
 use Webpatser\Uuid\Uuid;
 use Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\userAccountActivation;
 
 class UsersController extends Controller
 {
@@ -89,7 +91,9 @@ class UsersController extends Controller
             $user->photo = $name;
         }
         $user->save();
-        return redirect('/admin/users')->with('success','The user has been saved!');
+        // email user their activation details
+        Mail::to($user->email)->send(new userAccountActivation($user));
+        return redirect('/admin/users')->withMessage('The user has been saved!');
     }
 
     /**
@@ -185,7 +189,7 @@ class UsersController extends Controller
             $user->photo = $name;
         }
         $user->save();
-        return redirect('/admin/users')->with('success','The user has been saved!');
+        return redirect('/admin/users')->withMessage('The user has been saved!');
     }
 
     /**

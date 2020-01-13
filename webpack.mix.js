@@ -16,4 +16,6 @@ mix
     .js('resources/js/users.js', 'public/js')
     .js('resources/js/holidays.js', 'public/js')
     .js('resources/js/requests.js', 'public/js')
+    .js('resources/js/home.js', 'public/js')
+    .js('resources/js/requests-calendar.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
