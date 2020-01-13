@@ -274,4 +274,12 @@ class CalendarController extends Controller
         ]);
         //return redirect()->route('requests');
     }
+
+    public function deleteDeclinedRequests(Request $request)
+    {
+        $declinedHolidays = Holiday::where('stage', 'Declined')->delete();
+        return response()->json([
+            'success' => true
+        ]);
+    }
 }

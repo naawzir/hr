@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Calendar extends Model
 {
-    protected $table = 'calendar2020';
+    protected $table = 'calendar';
 
     public $timestamps = false;
 
@@ -22,7 +22,7 @@ class Calendar extends Model
      */
     public function holidays()
     {
-        return $this->hasMany('App\Holiday', 'id', 'id'); // calendar2020.date = holidays.id
+        return $this->hasMany('App\Holiday', 'id', 'id'); // calendar.date = holidays.id
     }
 
     /**
@@ -30,11 +30,11 @@ class Calendar extends Model
      */
     public function holidaysForUser()
     {
-        return $this->hasMany('App\Holiday', 'id', 'id')->where('holidays.user_id', \Auth::user()->id); // calendar2020.date = holidays.id
+        return $this->hasMany('App\Holiday', 'id', 'id')->where('holidays.user_id', \Auth::user()->id); // calendar.date = holidays.id
     }
 
     public function holidaysForUsers()
     {
-        return $this->hasMany('App\Holiday', 'id', 'id'); // calendar2020.date = holidays.id
+        return $this->hasMany('App\Holiday', 'id', 'id'); // calendar.date = holidays.id
     }
 }

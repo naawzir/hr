@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
             'lastname'   => 'Bloggs',
             'gender'     => 'male',
             'name'       => 'Joe Bloggs',
-            'email'      => 'joebloggs@test.com',
+            'email'      => 'jbloggs@test.com',
             'password'   => bcrypt('password'),
             'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),

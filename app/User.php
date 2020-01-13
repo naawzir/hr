@@ -66,6 +66,14 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    public function isAdmin()
+    {
+        if (\Auth::user()->id === 1) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Set the user's full name.
      *
