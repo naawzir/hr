@@ -10,6 +10,7 @@ use Webpatser\Uuid\Uuid;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\userAccountActivation;
+use App\Events\sendUserActivationEmail;
 
 class UsersController extends Controller
 {
@@ -20,7 +21,7 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['editActivateAccount', 'storeActivateAccount']);
     }
 
     /**
@@ -90,9 +91,12 @@ class UsersController extends Controller
             $image->move($destinationPath, $name);
             $user->photo = $name;
         }
+        $user->token = \Uuid::generate()->string;
         $user->save();
         // email user their activation details
-        Mail::to($user->email)->send(new userAccountActivation($user));
+        // put this into an event
+        event(new sendUserActivationEmail($user));
+        //Mail::to($user->email)->send(new userAccountActivation($user));
         return redirect('/admin/users')->withMessage('The user has been saved!');
     }
 
@@ -234,5 +238,27 @@ class UsersController extends Controller
         $user->save();
         return redirect('/admin/users/'. $user->uuid . '/update-password')
             ->withMessage('Your password has been successfully updated');
+    }
+
+    public function editActivateAccount(Request $request, $token)
+    {
+        return view('user.activate-account', ['token' => $token]);
+    }
+
+    public function storeActivateAccount(Request $request, $token)
+    {
+        $user = User::where('token', $token)->firstOrFail();
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|confirmed|min:8',
+        ]);
+        if ($validator->fails()) {
+            return redirect('/admin/activate-account/' . $token)
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $user->password = bcrypt($request->password);
+        $user->token = null;
+        $user->save();
+        return redirect('/login')->withMessage('Your account is now active. You may login!');
     }
 }

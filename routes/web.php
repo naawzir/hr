@@ -26,7 +26,11 @@ Route::get('/', function () {
 
 Route::get('/login', 'LoginController@index')->name('login');
 
+//
+
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
+    Route::get('/activate-account/{token}', 'UsersController@editActivateAccount')->name('activate.account');
+    Route::post('/activate-account/{token}', 'UsersController@storeActivateAccount');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/requests', 'CalendarController@requests')->name('requests');
     Route::resource('/users', 'UsersController');

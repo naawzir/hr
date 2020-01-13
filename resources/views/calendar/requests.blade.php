@@ -167,12 +167,14 @@
                     </div>
                 </div>
                 <br>
-                <button v-if="acceptButton" class="request_button" @click="acceptHolidayRequests()">Accept</button>
-                <button v-if="declineButton" class="request_button" @click="declineHolidayRequests()">Decline</button>
                 <select v-model="weekendAvailability" @change="toggleWeekendAvailability()">
                     <option value="1">Weekends are available</option>
                     <option value="0">Weekends are not available</option>
                 </select>
+                <br>
+                <br>
+                <button v-if="acceptButton" class="request_button" @click="acceptHolidayRequests()">Accept</button>
+                <button v-if="declineButton" class="request_button" @click="declineHolidayRequests()">Decline</button>
             <div class='clear'></div>
         </div><!--end of content-->
     </div><!--end of content_wrapper-->

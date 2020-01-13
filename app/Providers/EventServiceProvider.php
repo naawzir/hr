@@ -24,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\sendEmailToEmployee' => [
             'App\Listeners\holidaysRequestsDeclined',
         ],
+        'App\Events\sendUserActivationEmail' => [
+            'App\Listeners\newUserHasBeenCreated',
+        ],
     ];
 
     /**
