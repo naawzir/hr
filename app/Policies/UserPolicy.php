@@ -12,11 +12,8 @@ class UserPolicy
     public function before($user, $ability)
     {
         /* @var $user User
-         *
          */
-        if ($user->isAdmin()) {
-            return true;
-        }
+        return $user->isAdmin();
     }
 
     /**
@@ -50,7 +47,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->id === 1;
+
     }
 
     /**

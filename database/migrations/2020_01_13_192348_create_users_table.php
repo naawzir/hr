@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration {
 			$table->dateTime('email_verified_at')->nullable();
 			$table->string('password');
 			$table->string('remember_token', 100)->nullable();
+            $table->boolean('is_admin')->default(false);
 			$table->timestamps();
 			$table->string('title', 10)->nullable();
 			$table->string('firstname', 30)->nullable();
@@ -41,7 +42,6 @@ class CreateUsersTable extends Migration {
 		});
 	}
 
-
 	/**
 	 * Reverse the migrations.
 	 *
@@ -54,5 +54,4 @@ class CreateUsersTable extends Migration {
         }
 		Schema::drop('users');
 	}
-
 }

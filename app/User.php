@@ -68,10 +68,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function isAdmin()
     {
-        if (\Auth::user()->id === 1) {
-            return true;
+        $isAdmin = false;
+        if (\Auth::user()->is_admin === 1) {
+            $isAdmin = true;
         }
-        return false;
+
+        return $isAdmin;
     }
 
     /**

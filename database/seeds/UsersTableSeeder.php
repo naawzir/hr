@@ -22,6 +22,7 @@ class UsersTableSeeder extends Seeder
             'password'   => bcrypt('password'),
             'created_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => \Carbon\Carbon::now()->format('Y-m-d H:i:s'),
+            'is_admin'   => 1,
         ]);
     }
 }
